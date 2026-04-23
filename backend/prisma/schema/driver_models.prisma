@@ -1,0 +1,41 @@
+// --- driver_models.prisma ---
+
+model Driver {
+    id             String          @id @default(uuid())
+    name           String
+    email          String
+    phone          String
+    photo_url      String?
+    transport_type TransportType
+    is_online      Boolean
+    lat            Float
+    lng            Float
+    rating_avg     Float?
+    is_verified    Boolean
+    created_at     DateTime        @default(now())
+    earnings       DriverEarning[]
+}
+
+enum TransportType {
+    bike
+    scooter
+    car
+}
+
+model DriverEarning {
+    id          String        @id @default(uuid())
+    driver_id   String
+    order_id    String
+    base_amount Float
+    bonus       Float
+    tip         Float
+    total       Float
+    status      EarningStatus
+    paid_at     DateTime?
+    driver      Driver        @relation(fields: [driver_id], references: [id])
+}
+
+enum EarningStatus {
+    pending
+    paid
+}

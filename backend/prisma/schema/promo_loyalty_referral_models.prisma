@@ -1,0 +1,47 @@
+// --- promo_loyalty_referral_models.prisma ---
+
+model PromoCode {
+    id         String    @id @default(uuid())
+    code       String    @unique
+    type       PromoType
+    value      Float
+    min_order  Float
+    max_uses   Int
+    uses_count Int
+    expires_at DateTime
+}
+
+enum PromoType {
+    percent
+    fixed
+    free_delivery
+}
+
+model LoyaltyPoint {
+    id         String        @id @default(uuid())
+    user_id    String
+    order_id   String
+    points     Int
+    reason     LoyaltyReason
+    created_at DateTime      @default(now())
+}
+
+enum LoyaltyReason {
+    order
+    referral
+    redeem
+}
+
+model Referral {
+    id          String         @id @default(uuid())
+    referrer_id String
+    referred_id String
+    code        String
+    status      ReferralStatus
+    created_at  DateTime       @default(now())
+}
+
+enum ReferralStatus {
+    pending
+    rewarded
+}

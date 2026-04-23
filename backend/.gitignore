@@ -1,0 +1,55 @@
+
+# =====================
+# DEPENDENCIES (FRONT + BACK)
+# =====================
+**/node_modules/
+**/vendor/
+
+# =====================
+# FRONTEND (Next.js)
+# =====================
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.vercel/
+
+# =====================
+# BACKEND (Symfony / API)
+# =====================
+backend/var/
+backend/cache/
+backend/logs/
+backend/build/
+backend/dist/
+
+# =====================
+# ENV FILES
+# =====================
+**/.env
+**/.env.*
+!.env.example
+
+# =====================
+# PRISMA (si utilisé en backend)
+# =====================
+backend/src/generated/prisma/
+
+# =====================
+# LOGS
+# =====================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =====================
+# SYSTEM FILES
+# =====================
+.DS_Store
+*.pem
+
+# =====================
+# TYPESCRIPT / NEXT
+# =====================
+*.tsbuildinfo
+next-env.d.ts

@@ -1,0 +1,375 @@
+datasource db {
+    provider = "postgresql"
+}
+
+// --- driver_models.prisma ---
+// --- driver_models.prisma ---
+
+model Driver {
+    id             String          @id @default(uuid())
+    name           String
+    email          String
+    phone          String
+    photo_url      String?
+    transport_type TransportType
+    is_online      Boolean
+    lat            Float
+    lng            Float
+    rating_avg     Float?
+    is_verified    Boolean
+    created_at     DateTime        @default(now())
+    earnings       DriverEarning[]
+}
+
+enum TransportType {
+    bike
+    scooter
+    car
+}
+
+model DriverEarning {
+    id          String        @id @default(uuid())
+    driver_id   String
+    order_id    String
+    base_amount Float
+    bonus       Float
+    tip         Float
+    total       Float
+    status      EarningStatus
+    paid_at     DateTime?
+    driver      Driver        @relation(fields: [driver_id], references: [id])
+}
+
+enum EarningStatus {
+    pending
+    paid
+}
+
+// --- menu_restaurants_models.prisma ---
+// --- restaurants.prisma ---
+model Restaurant {
+    id              String         @id @default(uuid())
+    owner_id        String // FK → users
+    name            String
+    description     String?
+    logo_url        String?
+    address         String
+    lat             Float
+    lng             Float
+    opening_hours   Json
+    is_active       Boolean
+    rating_avg      Float?
+    cuisine_type    String
+    prep_time_min   Int
+    delivery_fee    Float
+    menu_categories MenuCategory[] @relation("RestaurantCategories")
+}
+
+// --- menu_categories.prisma ---
+model MenuCategory {
+    id            String                   @id @default(uuid())
+    restaurant_id String
+    name          String
+    position      Int
+    availability  MenuCategoryAvailability
+    restaurant    Restaurant               @relation(fields: [restaurant_id], references: [id], name: "RestaurantCategories")
+    menu_items    MenuItem[]               @relation("CategoryItems")
+}
+
+enum MenuCategoryAvailability {
+    always
+    lunch
+    dinner
+    weekend
+}
+
+// --- menu_items.prisma ---
+model MenuItem {
+    id           String           @id @default(uuid())
+    category_id  String
+    name         String
+    description  String?
+    photo_url    String?
+    price        Float
+    is_available Boolean
+    is_popular   Boolean
+    category     MenuCategory     @relation(fields: [category_id], references: [id], name: "CategoryItems")
+    options      MenuItemOption[] @relation("ItemOptions")
+}
+
+// --- menu_item_options.prisma ---
+model MenuItemOption {
+    id          String                @id @default(uuid())
+    item_id     String
+    name        String
+    type        MenuItemOptionType
+    is_required Boolean
+    item        MenuItem              @relation(fields: [item_id], references: [id], name: "ItemOptions")
+    values      MenuItemOptionValue[] @relation("OptionValues")
+}
+
+enum MenuItemOptionType {
+    single
+    multiple
+}
+
+// --- menu_item_option_values.prisma ---
+model MenuItemOptionValue {
+    id          String         @id @default(uuid())
+    option_id   String
+    label       String
+    extra_price Float
+    option      MenuItemOption @relation(fields: [option_id], references: [id], name: "OptionValues")
+}
+
+// --- notification_support_models.prisma ---
+// --- notification_support_models.prisma ---
+
+model Notification {
+    id      String              @id @default(uuid())
+    user_id String
+    channel NotificationChannel
+    type    String
+    title   String
+    body    String
+    is_read Boolean
+    sent_at DateTime
+}
+
+enum NotificationChannel {
+    push
+    sms
+    email
+}
+
+model SupportTicket {
+    id         String           @id @default(uuid())
+    user_id    String
+    order_id   String
+    reason     SupportReason
+    status     SupportStatus
+    created_at DateTime         @default(now())
+    messages   SupportMessage[]
+}
+
+enum SupportReason {
+    missing_item
+    wrong_item
+    other
+}
+
+enum SupportStatus {
+    open
+    in_progress
+    resolved
+}
+
+model SupportMessage {
+    id        String        @id @default(uuid())
+    ticket_id String
+    sender_id String
+    role      SupportRole
+    content   String
+    sent_at   DateTime
+    ticket    SupportTicket @relation(fields: [ticket_id], references: [id])
+}
+
+enum SupportRole {
+    user
+    agent
+    bot
+}
+
+// --- order_models.prisma ---
+// --- order_models.prisma ---
+
+model Order {
+    id                    String               @id @default(uuid())
+    user_id               String
+    restaurant_id         String
+    driver_id             String?
+    delivery_address_id   String
+    promo_code_id         String?
+    payment_method_id     String
+    status                OrderStatus
+    subtotal              Float
+    delivery_fee          Float
+    taxes                 Float
+    tip_amount            Float
+    total                 Float
+    estimated_delivery_at DateTime
+    delivered_at          DateTime?
+    created_at            DateTime             @default(now())
+    order_items           OrderItem[]
+    status_history        OrderStatusHistory[]
+    reviews               Review[]
+}
+
+enum OrderStatus {
+    created
+    confirmed
+    prepared
+    delivered
+    cancelled
+}
+
+model OrderItem {
+    id           String               @id @default(uuid())
+    order_id     String
+    menu_item_id String
+    quantity     Int
+    unit_price   Float
+    notes        String?
+    order        Order                @relation(fields: [order_id], references: [id])
+    selections   OrderItemSelection[]
+}
+
+model OrderItemSelection {
+    id              String    @id @default(uuid())
+    order_item_id   String
+    option_value_id String
+    extra_price     Float
+    order_item      OrderItem @relation(fields: [order_item_id], references: [id])
+}
+
+model OrderStatusHistory {
+    id         String      @id @default(uuid())
+    order_id   String
+    status     OrderStatus
+    note       String?
+    changed_at DateTime
+    order      Order       @relation(fields: [order_id], references: [id])
+}
+
+model Review {
+    id                String   @id @default(uuid())
+    order_id          String
+    user_id           String
+    restaurant_id     String
+    driver_id         String?
+    restaurant_rating Int
+    driver_rating     Int
+    comment           String?
+    photo_url         String?
+    created_at        DateTime @default(now())
+    order             Order    @relation(fields: [order_id], references: [id])
+}
+
+// --- promo_loyalty_referral_models.prisma ---
+// --- promo_loyalty_referral_models.prisma ---
+
+model PromoCode {
+    id         String    @id @default(uuid())
+    code       String    @unique
+    type       PromoType
+    value      Float
+    min_order  Float
+    max_uses   Int
+    uses_count Int
+    expires_at DateTime
+}
+
+enum PromoType {
+    percent
+    fixed
+    free_delivery
+}
+
+model LoyaltyPoint {
+    id         String        @id @default(uuid())
+    user_id    String
+    order_id   String
+    points     Int
+    reason     LoyaltyReason
+    created_at DateTime      @default(now())
+}
+
+enum LoyaltyReason {
+    order
+    referral
+    redeem
+}
+
+model Referral {
+    id          String         @id @default(uuid())
+    referrer_id String
+    referred_id String
+    code        String
+    status      ReferralStatus
+    created_at  DateTime       @default(now())
+}
+
+enum ReferralStatus {
+    pending
+    rewarded
+}
+
+// --- user_models.prisma ---
+// --- user_models.prisma ---
+
+enum PaymentType {
+    cb
+    paypal
+    apple
+    google
+}
+
+enum SubscriptionPlan {
+    free
+    premium
+}
+
+enum SubscriptionStatus {
+    active
+    cancelled
+    expired
+}
+
+model User {
+    id             String          @id @default(uuid())
+    email          String          @unique
+    phone          String
+    name           String
+    photo_url      String?
+    preferences    Json?
+    allergies      Json?
+    phone_verified Boolean
+    created_at     DateTime        @default(now())
+    addresses      UserAddress[]
+    paymentMethods PaymentMethod[]
+    subscriptions  Subscription[]
+}
+
+model UserAddress {
+    id         String  @id @default(uuid())
+    user_id    String
+    label      String
+    street     String
+    city       String
+    lat        Float
+    lng        Float
+    is_default Boolean
+    user       User    @relation(fields: [user_id], references: [id])
+}
+
+model PaymentMethod {
+    id           String      @id @default(uuid())
+    user_id      String
+    type         PaymentType
+    stripe_token String
+    last4        String
+    is_default   Boolean
+    user         User        @relation(fields: [user_id], references: [id])
+}
+
+model Subscription {
+    id         String             @id @default(uuid())
+    user_id    String
+    plan       SubscriptionPlan
+    price      Float
+    status     SubscriptionStatus
+    started_at DateTime
+    expires_at DateTime
+    user       User               @relation(fields: [user_id], references: [id])
+}
+

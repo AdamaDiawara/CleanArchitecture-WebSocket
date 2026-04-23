@@ -1,0 +1,67 @@
+// --- user_models.prisma ---
+
+enum PaymentType {
+    cb
+    paypal
+    apple
+    google
+}
+
+enum SubscriptionPlan {
+    free
+    premium
+}
+
+enum SubscriptionStatus {
+    active
+    cancelled
+    expired
+}
+
+model User {
+    id             String          @id @default(uuid())
+    email          String          @unique
+    phone          String
+    name           String
+    photo_url      String?
+    preferences    Json?
+    allergies      Json?
+    phone_verified Boolean
+    created_at     DateTime        @default(now())
+    addresses      UserAddress[]
+    paymentMethods PaymentMethod[]
+    subscriptions  Subscription[]
+}
+
+model UserAddress {
+    id         String  @id @default(uuid())
+    user_id    String
+    label      String
+    street     String
+    city       String
+    lat        Float
+    lng        Float
+    is_default Boolean
+    user       User    @relation(fields: [user_id], references: [id])
+}
+
+model PaymentMethod {
+    id           String      @id @default(uuid())
+    user_id      String
+    type         PaymentType
+    stripe_token String
+    last4        String
+    is_default   Boolean
+    user         User        @relation(fields: [user_id], references: [id])
+}
+
+model Subscription {
+    id         String             @id @default(uuid())
+    user_id    String
+    plan       SubscriptionPlan
+    price      Float
+    status     SubscriptionStatus
+    started_at DateTime
+    expires_at DateTime
+    user       User               @relation(fields: [user_id], references: [id])
+}
