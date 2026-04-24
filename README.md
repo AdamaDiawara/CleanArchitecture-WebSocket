@@ -9,17 +9,9 @@ Frontend: Next.js 16, React 19, Tailwind
 Database: PostgreSQL  
 CI/CD: GitHub Actions, Docker
 
-## Start Everything
-
-```bash
-docker-compose up   # Start backend + frontend + PostgreSQL
-```
-
 - Backend: http://localhost:3001
 - Frontend: http://localhost:3000
 - Database: localhost:5432
-
-## Commandes individuelles
 
 ### Backend
 

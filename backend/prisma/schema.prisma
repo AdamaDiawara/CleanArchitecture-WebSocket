@@ -2,7 +2,12 @@ datasource db {
     provider = "postgresql"
 }
 
-// --- driver_models.prisma ---
+generator client {
+    provider = "prisma-client"
+    output   = "../src/generated/prisma"
+}
+
+// --- driver_models.prisma.part ---
 // --- driver_models.prisma ---
 
 model Driver {
@@ -18,7 +23,9 @@ model Driver {
     rating_avg     Float?
     is_verified    Boolean
     created_at     DateTime        @default(now())
-    earnings       DriverEarning[]
+    earnings       DriverEarning[] @relation("DriverEarnings")
+    orders         Order[]         @relation("DriverOrders")
+    reviews        Review[]        @relation("DriverReviews")
 }
 
 enum TransportType {
@@ -37,7 +44,8 @@ model DriverEarning {
     total       Float
     status      EarningStatus
     paid_at     DateTime?
-    driver      Driver        @relation(fields: [driver_id], references: [id])
+    driver      Driver        @relation("DriverEarnings", fields: [driver_id], references: [id])
+    order       Order         @relation("OrderDriverEarnings", fields: [order_id], references: [id])
 }
 
 enum EarningStatus {
@@ -45,7 +53,7 @@ enum EarningStatus {
     paid
 }
 
-// --- menu_restaurants_models.prisma ---
+// --- menu_restaurants_models.prisma.part ---
 // --- restaurants.prisma ---
 model Restaurant {
     id              String         @id @default(uuid())
@@ -62,7 +70,10 @@ model Restaurant {
     cuisine_type    String
     prep_time_min   Int
     delivery_fee    Float
+    owner           User           @relation("UserRestaurants", fields: [owner_id], references: [id])
     menu_categories MenuCategory[] @relation("RestaurantCategories")
+    orders          Order[]        @relation("RestaurantOrders")
+    reviews         Review[]       @relation("RestaurantReviews")
 }
 
 // --- menu_categories.prisma ---
@@ -95,6 +106,7 @@ model MenuItem {
     is_popular   Boolean
     category     MenuCategory     @relation(fields: [category_id], references: [id], name: "CategoryItems")
     options      MenuItemOption[] @relation("ItemOptions")
+    order_items  OrderItem[]      @relation("MenuItemOrderItems")
 }
 
 // --- menu_item_options.prisma ---
@@ -115,14 +127,15 @@ enum MenuItemOptionType {
 
 // --- menu_item_option_values.prisma ---
 model MenuItemOptionValue {
-    id          String         @id @default(uuid())
+    id          String               @id @default(uuid())
     option_id   String
     label       String
     extra_price Float
-    option      MenuItemOption @relation(fields: [option_id], references: [id], name: "OptionValues")
+    option      MenuItemOption       @relation(fields: [option_id], references: [id], name: "OptionValues")
+    selections  OrderItemSelection[] @relation("OptionValueSelections")
 }
 
-// --- notification_support_models.prisma ---
+// --- notification_support_models.prisma.part ---
 // --- notification_support_models.prisma ---
 
 model Notification {
@@ -134,6 +147,7 @@ model Notification {
     body    String
     is_read Boolean
     sent_at DateTime
+    user    User                @relation("UserNotifications", fields: [user_id], references: [id])
 }
 
 enum NotificationChannel {
@@ -149,7 +163,9 @@ model SupportTicket {
     reason     SupportReason
     status     SupportStatus
     created_at DateTime         @default(now())
-    messages   SupportMessage[]
+    user       User             @relation("UserSupportTickets", fields: [user_id], references: [id])
+    order      Order            @relation("OrderSupportTickets", fields: [order_id], references: [id])
+    messages   SupportMessage[] @relation("TicketMessages")
 }
 
 enum SupportReason {
@@ -171,7 +187,7 @@ model SupportMessage {
     role      SupportRole
     content   String
     sent_at   DateTime
-    ticket    SupportTicket @relation(fields: [ticket_id], references: [id])
+    ticket    SupportTicket @relation("TicketMessages", fields: [ticket_id], references: [id])
 }
 
 enum SupportRole {
@@ -180,7 +196,7 @@ enum SupportRole {
     bot
 }
 
-// --- order_models.prisma ---
+// --- order_models.prisma.part ---
 // --- order_models.prisma ---
 
 model Order {
@@ -200,9 +216,18 @@ model Order {
     estimated_delivery_at DateTime
     delivered_at          DateTime?
     created_at            DateTime             @default(now())
+    user                  User                 @relation("UserOrders", fields: [user_id], references: [id])
+    restaurant            Restaurant           @relation("RestaurantOrders", fields: [restaurant_id], references: [id])
+    driver                Driver?              @relation("DriverOrders", fields: [driver_id], references: [id])
+    delivery_address      UserAddress          @relation("OrderDeliveryAddress", fields: [delivery_address_id], references: [id])
+    promo_code            PromoCode?           @relation("OrderPromoCode", fields: [promo_code_id], references: [id])
+    payment_method        PaymentMethod        @relation("OrderPaymentMethod", fields: [payment_method_id], references: [id])
     order_items           OrderItem[]
     status_history        OrderStatusHistory[]
-    reviews               Review[]
+    reviews               Review[]             @relation("OrderReviews")
+    driver_earnings       DriverEarning[]      @relation("OrderDriverEarnings")
+    support_tickets       SupportTicket[]      @relation("OrderSupportTickets")
+    loyalty_points        LoyaltyPoint[]       @relation("OrderLoyaltyPoints")
 }
 
 enum OrderStatus {
@@ -221,15 +246,17 @@ model OrderItem {
     unit_price   Float
     notes        String?
     order        Order                @relation(fields: [order_id], references: [id])
+    menu_item    MenuItem             @relation("MenuItemOrderItems", fields: [menu_item_id], references: [id])
     selections   OrderItemSelection[]
 }
 
 model OrderItemSelection {
-    id              String    @id @default(uuid())
+    id              String              @id @default(uuid())
     order_item_id   String
     option_value_id String
     extra_price     Float
-    order_item      OrderItem @relation(fields: [order_item_id], references: [id])
+    order_item      OrderItem           @relation(fields: [order_item_id], references: [id])
+    option_value    MenuItemOptionValue @relation("OptionValueSelections", fields: [option_value_id], references: [id])
 }
 
 model OrderStatusHistory {
@@ -242,7 +269,7 @@ model OrderStatusHistory {
 }
 
 model Review {
-    id                String   @id @default(uuid())
+    id                String     @id @default(uuid())
     order_id          String
     user_id           String
     restaurant_id     String
@@ -251,11 +278,16 @@ model Review {
     driver_rating     Int
     comment           String?
     photo_url         String?
-    created_at        DateTime @default(now())
-    order             Order    @relation(fields: [order_id], references: [id])
+    created_at        DateTime   @default(now())
+    order             Order      @relation("OrderReviews", fields: [order_id], references: [id])
+    user              User       @relation("UserReviews", fields: [user_id], references: [id])
+    restaurant        Restaurant @relation("RestaurantReviews", fields: [restaurant_id], references: [id])
+    driver            Driver?    @relation("DriverReviews", fields: [driver_id], references: [id])
+
+    @@unique([order_id])
 }
 
-// --- promo_loyalty_referral_models.prisma ---
+// --- promo_loyalty_referral_models.prisma.part ---
 // --- promo_loyalty_referral_models.prisma ---
 
 model PromoCode {
@@ -267,6 +299,7 @@ model PromoCode {
     max_uses   Int
     uses_count Int
     expires_at DateTime
+    orders     Order[]   @relation("OrderPromoCode")
 }
 
 enum PromoType {
@@ -282,6 +315,8 @@ model LoyaltyPoint {
     points     Int
     reason     LoyaltyReason
     created_at DateTime      @default(now())
+    user       User          @relation("UserLoyaltyPoints", fields: [user_id], references: [id])
+    order      Order         @relation("OrderLoyaltyPoints", fields: [order_id], references: [id])
 }
 
 enum LoyaltyReason {
@@ -297,6 +332,8 @@ model Referral {
     code        String
     status      ReferralStatus
     created_at  DateTime       @default(now())
+    referrer    User           @relation("ReferralsSent", fields: [referrer_id], references: [id])
+    referred    User           @relation("ReferralsReceived", fields: [referred_id], references: [id])
 }
 
 enum ReferralStatus {
@@ -304,7 +341,7 @@ enum ReferralStatus {
     rewarded
 }
 
-// --- user_models.prisma ---
+// --- user_models.prisma.part ---
 // --- user_models.prisma ---
 
 enum PaymentType {
@@ -326,30 +363,39 @@ enum SubscriptionStatus {
 }
 
 model User {
-    id             String          @id @default(uuid())
-    email          String          @unique
-    phone          String
-    name           String
-    photo_url      String?
-    preferences    Json?
-    allergies      Json?
-    phone_verified Boolean
-    created_at     DateTime        @default(now())
-    addresses      UserAddress[]
-    paymentMethods PaymentMethod[]
-    subscriptions  Subscription[]
+    id                 String          @id @default(uuid())
+    email              String          @unique
+    phone              String
+    name               String
+    photo_url          String?
+    preferences        Json?
+    allergies          Json?
+    phone_verified     Boolean
+    created_at         DateTime        @default(now())
+    restaurants        Restaurant[]    @relation("UserRestaurants")
+    orders             Order[]         @relation("UserOrders")
+    reviews            Review[]        @relation("UserReviews")
+    notifications      Notification[]  @relation("UserNotifications")
+    support_tickets    SupportTicket[] @relation("UserSupportTickets")
+    loyalty_points     LoyaltyPoint[]  @relation("UserLoyaltyPoints")
+    referrals_sent     Referral[]      @relation("ReferralsSent")
+    referrals_received Referral[]      @relation("ReferralsReceived")
+    addresses          UserAddress[]
+    paymentMethods     PaymentMethod[]
+    subscriptions      Subscription[]
 }
 
 model UserAddress {
-    id         String  @id @default(uuid())
-    user_id    String
-    label      String
-    street     String
-    city       String
-    lat        Float
-    lng        Float
-    is_default Boolean
-    user       User    @relation(fields: [user_id], references: [id])
+    id              String  @id @default(uuid())
+    user_id         String
+    label           String
+    street          String
+    city            String
+    lat             Float
+    lng             Float
+    is_default      Boolean
+    user            User    @relation(fields: [user_id], references: [id])
+    delivery_orders Order[] @relation("OrderDeliveryAddress")
 }
 
 model PaymentMethod {
@@ -360,6 +406,7 @@ model PaymentMethod {
     last4        String
     is_default   Boolean
     user         User        @relation(fields: [user_id], references: [id])
+    orders       Order[]     @relation("OrderPaymentMethod")
 }
 
 model Subscription {
