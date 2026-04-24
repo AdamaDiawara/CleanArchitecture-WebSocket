@@ -71,7 +71,7 @@ jobs:
     - uses: actions/checkout@v4.1.1
 
     - name: Scan config files (IaC)
-      uses: aquasecurity/trivy-action@v0.28.0
+      uses: aquasecurity/trivy-action@v0.30.0
       with:
         scan-type: config
         scan-ref: .
