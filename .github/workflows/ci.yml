@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -57,13 +61,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4.1.1
-    - uses: aquasecurity/trivy-action@master
+    - uses: aquasecurity/trivy-action@v0.28.0
       with:
         scan-type: config
         scan-ref: .
         format: sarif
         output: trivy-results.sarif
-    - uses: github/codeql-action/upload-sarif@v2.1.39
+    - uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: trivy-results.sarif
     - uses: actions/checkout@v4
