@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16
+    container_name: ecoeats-db
+    environment:
+      POSTGRES_USER: ecoEats
+      POSTGRES_PASSWORD: Damuss010197$
+      POSTGRES_DB: EcoEats
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecoEats -d EcoEats"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecoeats-backend
+    environment:
+      DATABASE_URL: postgresql://ecoEats:Damuss010197%24@db:5432/EcoEats?schema=public
+      PORT: 3001
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+    command: sh -c "npm run build && npx prisma db push --schema prisma/schema.prisma && npm run start"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ecoeats-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: production
+
+volumes:
+  postgres_data:

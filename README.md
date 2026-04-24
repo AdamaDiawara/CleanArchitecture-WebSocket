@@ -9,8 +9,12 @@ Frontend: Next.js 16, React 19, Tailwind
 Database: PostgreSQL  
 CI/CD: GitHub Actions, Docker
 
+### .env (a la racine du projet)
+
+DATABASE_URL="postgresql://<username>:<password>@localhost:5432/EcoEats"
+
 - Backend: http://localhost:3001
-- Frontend: http://localhost:3000
+- http://localhost:3002
 - Database: localhost:5432
 
 ### Backend
@@ -45,3 +49,35 @@ npx prisma db push           # Synchroniser le schéma avec la base de donnéese
 - `ci.yml`: Run tests + Trivy security scan on every push
 - `cd.yml`: Build Docker images → push to GHCR after CI success
 - `deploy.yml`: Manual SSH deployment (requires secrets)
+
+## Lancer avec Docker (simple)
+
+### Prerequis
+
+- Docker Desktop installe et demarre
+
+### Demarrage
+
+Depuis la racine du projet:
+
+```bash
+docker compose up --build
+```
+
+### URLs
+
+- Frontend: http://localhost:3002
+- Backend: http://localhost:3001
+- PostgreSQL: localhost:5432
+
+### Arret
+
+```bash
+docker compose down
+```
+
+### Arret + suppression des donnees DB
+
+```bash
+docker compose down -v
+```

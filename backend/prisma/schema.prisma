@@ -13,7 +13,7 @@ generator client {
 model Driver {
     id             String          @id @default(uuid())
     name           String
-    email          String
+    email          String          @unique
     phone          String
     photo_url      String?
     transport_type TransportType
@@ -26,6 +26,10 @@ model Driver {
     earnings       DriverEarning[] @relation("DriverEarnings")
     orders         Order[]         @relation("DriverOrders")
     reviews        Review[]        @relation("DriverReviews")
+
+    @@index([is_online])
+    @@index([transport_type])
+    @@index([created_at])
 }
 
 enum TransportType {
@@ -38,14 +42,18 @@ model DriverEarning {
     id          String        @id @default(uuid())
     driver_id   String
     order_id    String
-    base_amount Float
-    bonus       Float
-    tip         Float
-    total       Float
+    base_amount Decimal
+    bonus       Decimal
+    tip         Decimal
+    total       Decimal
     status      EarningStatus
     paid_at     DateTime?
     driver      Driver        @relation("DriverEarnings", fields: [driver_id], references: [id])
     order       Order         @relation("OrderDriverEarnings", fields: [order_id], references: [id])
+
+    @@index([driver_id])
+    @@index([order_id])
+    @@index([status])
 }
 
 enum EarningStatus {
@@ -69,11 +77,15 @@ model Restaurant {
     rating_avg      Float?
     cuisine_type    String
     prep_time_min   Int
-    delivery_fee    Float
+    delivery_fee    Decimal
     owner           User           @relation("UserRestaurants", fields: [owner_id], references: [id])
     menu_categories MenuCategory[] @relation("RestaurantCategories")
     orders          Order[]        @relation("RestaurantOrders")
     reviews         Review[]       @relation("RestaurantReviews")
+
+    @@index([owner_id])
+    @@index([is_active])
+    @@index([cuisine_type])
 }
 
 // --- menu_categories.prisma ---
@@ -85,6 +97,9 @@ model MenuCategory {
     availability  MenuCategoryAvailability
     restaurant    Restaurant               @relation(fields: [restaurant_id], references: [id], name: "RestaurantCategories")
     menu_items    MenuItem[]               @relation("CategoryItems")
+
+    @@index([restaurant_id])
+    @@index([availability])
 }
 
 enum MenuCategoryAvailability {
@@ -101,12 +116,16 @@ model MenuItem {
     name         String
     description  String?
     photo_url    String?
-    price        Float
+    price        Decimal
     is_available Boolean
     is_popular   Boolean
     category     MenuCategory     @relation(fields: [category_id], references: [id], name: "CategoryItems")
     options      MenuItemOption[] @relation("ItemOptions")
     order_items  OrderItem[]      @relation("MenuItemOrderItems")
+
+    @@index([category_id])
+    @@index([is_available])
+    @@index([is_popular])
 }
 
 // --- menu_item_options.prisma ---
@@ -118,6 +137,9 @@ model MenuItemOption {
     is_required Boolean
     item        MenuItem              @relation(fields: [item_id], references: [id], name: "ItemOptions")
     values      MenuItemOptionValue[] @relation("OptionValues")
+
+    @@index([item_id])
+    @@index([type])
 }
 
 enum MenuItemOptionType {
@@ -130,9 +152,11 @@ model MenuItemOptionValue {
     id          String               @id @default(uuid())
     option_id   String
     label       String
-    extra_price Float
+    extra_price Decimal
     option      MenuItemOption       @relation(fields: [option_id], references: [id], name: "OptionValues")
     selections  OrderItemSelection[] @relation("OptionValueSelections")
+
+    @@index([option_id])
 }
 
 // --- notification_support_models.prisma.part ---
@@ -148,6 +172,10 @@ model Notification {
     is_read Boolean
     sent_at DateTime
     user    User                @relation("UserNotifications", fields: [user_id], references: [id])
+
+    @@index([user_id])
+    @@index([is_read])
+    @@index([sent_at])
 }
 
 enum NotificationChannel {
@@ -166,6 +194,11 @@ model SupportTicket {
     user       User             @relation("UserSupportTickets", fields: [user_id], references: [id])
     order      Order            @relation("OrderSupportTickets", fields: [order_id], references: [id])
     messages   SupportMessage[] @relation("TicketMessages")
+
+    @@index([user_id])
+    @@index([order_id])
+    @@index([status])
+    @@index([created_at])
 }
 
 enum SupportReason {
@@ -188,6 +221,10 @@ model SupportMessage {
     content   String
     sent_at   DateTime
     ticket    SupportTicket @relation("TicketMessages", fields: [ticket_id], references: [id])
+
+    @@index([ticket_id])
+    @@index([sender_id])
+    @@index([sent_at])
 }
 
 enum SupportRole {
@@ -208,11 +245,11 @@ model Order {
     promo_code_id         String?
     payment_method_id     String
     status                OrderStatus
-    subtotal              Float
-    delivery_fee          Float
-    taxes                 Float
-    tip_amount            Float
-    total                 Float
+    subtotal              Decimal
+    delivery_fee          Decimal
+    taxes                 Decimal
+    tip_amount            Decimal
+    total                 Decimal
     estimated_delivery_at DateTime
     delivered_at          DateTime?
     created_at            DateTime             @default(now())
@@ -228,6 +265,15 @@ model Order {
     driver_earnings       DriverEarning[]      @relation("OrderDriverEarnings")
     support_tickets       SupportTicket[]      @relation("OrderSupportTickets")
     loyalty_points        LoyaltyPoint[]       @relation("OrderLoyaltyPoints")
+
+    @@index([user_id])
+    @@index([restaurant_id])
+    @@index([driver_id])
+    @@index([delivery_address_id])
+    @@index([promo_code_id])
+    @@index([payment_method_id])
+    @@index([status])
+    @@index([created_at])
 }
 
 enum OrderStatus {
@@ -243,20 +289,26 @@ model OrderItem {
     order_id     String
     menu_item_id String
     quantity     Int
-    unit_price   Float
+    unit_price   Decimal
     notes        String?
     order        Order                @relation(fields: [order_id], references: [id])
     menu_item    MenuItem             @relation("MenuItemOrderItems", fields: [menu_item_id], references: [id])
     selections   OrderItemSelection[]
+
+    @@index([order_id])
+    @@index([menu_item_id])
 }
 
 model OrderItemSelection {
     id              String              @id @default(uuid())
     order_item_id   String
     option_value_id String
-    extra_price     Float
+    extra_price     Decimal
     order_item      OrderItem           @relation(fields: [order_item_id], references: [id])
     option_value    MenuItemOptionValue @relation("OptionValueSelections", fields: [option_value_id], references: [id])
+
+    @@index([order_item_id])
+    @@index([option_value_id])
 }
 
 model OrderStatusHistory {
@@ -266,6 +318,10 @@ model OrderStatusHistory {
     note       String?
     changed_at DateTime
     order      Order       @relation(fields: [order_id], references: [id])
+
+    @@index([order_id])
+    @@index([status])
+    @@index([changed_at])
 }
 
 model Review {
@@ -275,7 +331,7 @@ model Review {
     restaurant_id     String
     driver_id         String?
     restaurant_rating Int
-    driver_rating     Int
+    driver_rating     Int?
     comment           String?
     photo_url         String?
     created_at        DateTime   @default(now())
@@ -285,6 +341,10 @@ model Review {
     driver            Driver?    @relation("DriverReviews", fields: [driver_id], references: [id])
 
     @@unique([order_id])
+    @@index([user_id])
+    @@index([restaurant_id])
+    @@index([driver_id])
+    @@index([created_at])
 }
 
 // --- promo_loyalty_referral_models.prisma.part ---
@@ -294,12 +354,15 @@ model PromoCode {
     id         String    @id @default(uuid())
     code       String    @unique
     type       PromoType
-    value      Float
-    min_order  Float
+    value      Decimal
+    min_order  Decimal
     max_uses   Int
     uses_count Int
     expires_at DateTime
     orders     Order[]   @relation("OrderPromoCode")
+
+    @@index([expires_at])
+    @@index([type])
 }
 
 enum PromoType {
@@ -317,6 +380,10 @@ model LoyaltyPoint {
     created_at DateTime      @default(now())
     user       User          @relation("UserLoyaltyPoints", fields: [user_id], references: [id])
     order      Order         @relation("OrderLoyaltyPoints", fields: [order_id], references: [id])
+
+    @@index([user_id])
+    @@index([order_id])
+    @@index([created_at])
 }
 
 enum LoyaltyReason {
@@ -329,11 +396,16 @@ model Referral {
     id          String         @id @default(uuid())
     referrer_id String
     referred_id String
-    code        String
+    code        String         @unique
     status      ReferralStatus
     created_at  DateTime       @default(now())
     referrer    User           @relation("ReferralsSent", fields: [referrer_id], references: [id])
     referred    User           @relation("ReferralsReceived", fields: [referred_id], references: [id])
+
+    @@index([referrer_id])
+    @@index([referred_id])
+    @@index([status])
+    @@index([created_at])
 }
 
 enum ReferralStatus {
@@ -383,6 +455,8 @@ model User {
     addresses          UserAddress[]
     paymentMethods     PaymentMethod[]
     subscriptions      Subscription[]
+
+    @@index([created_at])
 }
 
 model UserAddress {
@@ -396,6 +470,9 @@ model UserAddress {
     is_default      Boolean
     user            User    @relation(fields: [user_id], references: [id])
     delivery_orders Order[] @relation("OrderDeliveryAddress")
+
+    @@index([user_id])
+    @@index([is_default])
 }
 
 model PaymentMethod {
@@ -407,16 +484,24 @@ model PaymentMethod {
     is_default   Boolean
     user         User        @relation(fields: [user_id], references: [id])
     orders       Order[]     @relation("OrderPaymentMethod")
+
+    @@index([user_id])
+    @@index([type])
+    @@index([is_default])
 }
 
 model Subscription {
     id         String             @id @default(uuid())
     user_id    String
     plan       SubscriptionPlan
-    price      Float
+    price      Decimal
     status     SubscriptionStatus
     started_at DateTime
     expires_at DateTime
     user       User               @relation(fields: [user_id], references: [id])
+
+    @@index([user_id])
+    @@index([status])
+    @@index([expires_at])
 }
 
