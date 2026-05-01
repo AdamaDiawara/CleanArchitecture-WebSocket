@@ -69,7 +69,10 @@ export const ModelName = {
   PromoCode: 'PromoCode',
   LoyaltyPoint: 'LoyaltyPoint',
   Referral: 'Referral',
+  Document: 'Document',
   User: 'User',
+  AuthIdentity: 'AuthIdentity',
+  RefreshToken: 'RefreshToken',
   UserAddress: 'UserAddress',
   PaymentMethod: 'PaymentMethod',
   Subscription: 'Subscription'
@@ -103,6 +106,7 @@ export const DriverScalarFieldEnum = {
   lng: 'lng',
   rating_avg: 'rating_avg',
   is_verified: 'is_verified',
+  user_id: 'user_id',
   created_at: 'created_at'
 } as const
 
@@ -163,7 +167,8 @@ export const MenuItemScalarFieldEnum = {
   photo_url: 'photo_url',
   price: 'price',
   is_available: 'is_available',
-  is_popular: 'is_popular'
+  is_popular: 'is_popular',
+  daily_stock: 'daily_stock'
 } as const
 
 export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typeof MenuItemScalarFieldEnum]
@@ -337,6 +342,21 @@ export const ReferralScalarFieldEnum = {
 export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
 
 
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  type: 'type',
+  file_path: 'file_path',
+  mime_type: 'mime_type',
+  status: 'status',
+  reject_reason: 'reject_reason',
+  created_at: 'created_at',
+  reviewed_at: 'reviewed_at'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -346,10 +366,36 @@ export const UserScalarFieldEnum = {
   preferences: 'preferences',
   allergies: 'allergies',
   phone_verified: 'phone_verified',
+  role: 'role',
+  stripe_customer_id: 'stripe_customer_id',
   created_at: 'created_at'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AuthIdentityScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  provider: 'provider',
+  provider_user_id: 'provider_user_id',
+  password_hash: 'password_hash',
+  created_at: 'created_at'
+} as const
+
+export type AuthIdentityScalarFieldEnum = (typeof AuthIdentityScalarFieldEnum)[keyof typeof AuthIdentityScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  created_at: 'created_at'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const UserAddressScalarFieldEnum = {
@@ -371,8 +417,9 @@ export const PaymentMethodScalarFieldEnum = {
   user_id: 'user_id',
   type: 'type',
   stripe_token: 'stripe_token',
-  last4: 'last4',
-  is_default: 'is_default'
+  label: 'label',
+  is_default: 'is_default',
+  created_at: 'created_at'
 } as const
 
 export type PaymentMethodScalarFieldEnum = (typeof PaymentMethodScalarFieldEnum)[keyof typeof PaymentMethodScalarFieldEnum]

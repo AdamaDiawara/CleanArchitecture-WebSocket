@@ -268,7 +268,7 @@ export type OrderGroupByOutputType = {
   driver_id: string | null
   delivery_address_id: string
   promo_code_id: string | null
-  payment_method_id: string
+  payment_method_id: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal
   delivery_fee: runtime.Decimal
@@ -310,7 +310,7 @@ export type OrderWhereInput = {
   driver_id?: Prisma.StringNullableFilter<"Order"> | string | null
   delivery_address_id?: Prisma.StringFilter<"Order"> | string
   promo_code_id?: Prisma.StringNullableFilter<"Order"> | string | null
-  payment_method_id?: Prisma.StringFilter<"Order"> | string
+  payment_method_id?: Prisma.StringNullableFilter<"Order"> | string | null
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -325,7 +325,7 @@ export type OrderWhereInput = {
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   delivery_address?: Prisma.XOR<Prisma.UserAddressScalarRelationFilter, Prisma.UserAddressWhereInput>
   promo_code?: Prisma.XOR<Prisma.PromoCodeNullableScalarRelationFilter, Prisma.PromoCodeWhereInput> | null
-  payment_method?: Prisma.XOR<Prisma.PaymentMethodScalarRelationFilter, Prisma.PaymentMethodWhereInput>
+  payment_method?: Prisma.XOR<Prisma.PaymentMethodNullableScalarRelationFilter, Prisma.PaymentMethodWhereInput> | null
   order_items?: Prisma.OrderItemListRelationFilter
   status_history?: Prisma.OrderStatusHistoryListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -341,7 +341,7 @@ export type OrderOrderByWithRelationInput = {
   driver_id?: Prisma.SortOrderInput | Prisma.SortOrder
   delivery_address_id?: Prisma.SortOrder
   promo_code_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  payment_method_id?: Prisma.SortOrder
+  payment_method_id?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   delivery_fee?: Prisma.SortOrder
@@ -375,7 +375,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   driver_id?: Prisma.StringNullableFilter<"Order"> | string | null
   delivery_address_id?: Prisma.StringFilter<"Order"> | string
   promo_code_id?: Prisma.StringNullableFilter<"Order"> | string | null
-  payment_method_id?: Prisma.StringFilter<"Order"> | string
+  payment_method_id?: Prisma.StringNullableFilter<"Order"> | string | null
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -390,7 +390,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   driver?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
   delivery_address?: Prisma.XOR<Prisma.UserAddressScalarRelationFilter, Prisma.UserAddressWhereInput>
   promo_code?: Prisma.XOR<Prisma.PromoCodeNullableScalarRelationFilter, Prisma.PromoCodeWhereInput> | null
-  payment_method?: Prisma.XOR<Prisma.PaymentMethodScalarRelationFilter, Prisma.PaymentMethodWhereInput>
+  payment_method?: Prisma.XOR<Prisma.PaymentMethodNullableScalarRelationFilter, Prisma.PaymentMethodWhereInput> | null
   order_items?: Prisma.OrderItemListRelationFilter
   status_history?: Prisma.OrderStatusHistoryListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
@@ -406,7 +406,7 @@ export type OrderOrderByWithAggregationInput = {
   driver_id?: Prisma.SortOrderInput | Prisma.SortOrder
   delivery_address_id?: Prisma.SortOrder
   promo_code_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  payment_method_id?: Prisma.SortOrder
+  payment_method_id?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   delivery_fee?: Prisma.SortOrder
@@ -433,7 +433,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   driver_id?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   delivery_address_id?: Prisma.StringWithAggregatesFilter<"Order"> | string
   promo_code_id?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
-  payment_method_id?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  payment_method_id?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
   subtotal?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -461,7 +461,7 @@ export type OrderCreateInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -477,7 +477,7 @@ export type OrderUncheckedCreateInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -511,7 +511,7 @@ export type OrderUpdateInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -527,7 +527,7 @@ export type OrderUncheckedUpdateInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -552,7 +552,7 @@ export type OrderCreateManyInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -584,7 +584,7 @@ export type OrderUncheckedUpdateManyInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1039,7 +1039,7 @@ export type OrderCreateWithoutDriverInput = {
   restaurant: Prisma.RestaurantCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1054,7 +1054,7 @@ export type OrderUncheckedCreateWithoutDriverInput = {
   restaurant_id: string
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1108,7 +1108,7 @@ export type OrderScalarWhereInput = {
   driver_id?: Prisma.StringNullableFilter<"Order"> | string | null
   delivery_address_id?: Prisma.StringFilter<"Order"> | string
   promo_code_id?: Prisma.StringNullableFilter<"Order"> | string | null
-  payment_method_id?: Prisma.StringFilter<"Order"> | string
+  payment_method_id?: Prisma.StringNullableFilter<"Order"> | string | null
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1136,7 +1136,7 @@ export type OrderCreateWithoutDriver_earningsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1151,7 +1151,7 @@ export type OrderUncheckedCreateWithoutDriver_earningsInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1200,7 +1200,7 @@ export type OrderUpdateWithoutDriver_earningsInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -1215,7 +1215,7 @@ export type OrderUncheckedUpdateWithoutDriver_earningsInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1247,7 +1247,7 @@ export type OrderCreateWithoutRestaurantInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1262,7 +1262,7 @@ export type OrderUncheckedCreateWithoutRestaurantInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1322,7 +1322,7 @@ export type OrderCreateWithoutSupport_ticketsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1337,7 +1337,7 @@ export type OrderUncheckedCreateWithoutSupport_ticketsInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1386,7 +1386,7 @@ export type OrderUpdateWithoutSupport_ticketsInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -1401,7 +1401,7 @@ export type OrderUncheckedUpdateWithoutSupport_ticketsInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1434,7 +1434,7 @@ export type OrderCreateWithoutOrder_itemsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
   driver_earnings?: Prisma.DriverEarningCreateNestedManyWithoutOrderInput
@@ -1449,7 +1449,7 @@ export type OrderUncheckedCreateWithoutOrder_itemsInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1498,7 +1498,7 @@ export type OrderUpdateWithoutOrder_itemsInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
   driver_earnings?: Prisma.DriverEarningUpdateManyWithoutOrderNestedInput
@@ -1513,7 +1513,7 @@ export type OrderUncheckedUpdateWithoutOrder_itemsInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1546,7 +1546,7 @@ export type OrderCreateWithoutStatus_historyInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
   driver_earnings?: Prisma.DriverEarningCreateNestedManyWithoutOrderInput
@@ -1561,7 +1561,7 @@ export type OrderUncheckedCreateWithoutStatus_historyInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1610,7 +1610,7 @@ export type OrderUpdateWithoutStatus_historyInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
   driver_earnings?: Prisma.DriverEarningUpdateManyWithoutOrderNestedInput
@@ -1625,7 +1625,7 @@ export type OrderUncheckedUpdateWithoutStatus_historyInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1658,7 +1658,7 @@ export type OrderCreateWithoutReviewsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   driver_earnings?: Prisma.DriverEarningCreateNestedManyWithoutOrderInput
@@ -1673,7 +1673,7 @@ export type OrderUncheckedCreateWithoutReviewsInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1722,7 +1722,7 @@ export type OrderUpdateWithoutReviewsInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   driver_earnings?: Prisma.DriverEarningUpdateManyWithoutOrderNestedInput
@@ -1737,7 +1737,7 @@ export type OrderUncheckedUpdateWithoutReviewsInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1769,7 +1769,7 @@ export type OrderCreateWithoutPromo_codeInput = {
   restaurant: Prisma.RestaurantCreateNestedOneWithoutOrdersInput
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1784,7 +1784,7 @@ export type OrderUncheckedCreateWithoutPromo_codeInput = {
   restaurant_id: string
   driver_id?: string | null
   delivery_address_id: string
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1844,7 +1844,7 @@ export type OrderCreateWithoutLoyalty_pointsInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1859,7 +1859,7 @@ export type OrderUncheckedCreateWithoutLoyalty_pointsInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1908,7 +1908,7 @@ export type OrderUpdateWithoutLoyalty_pointsInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -1923,7 +1923,7 @@ export type OrderUncheckedUpdateWithoutLoyalty_pointsInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1955,7 +1955,7 @@ export type OrderCreateWithoutUserInput = {
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   delivery_address: Prisma.UserAddressCreateNestedOneWithoutDelivery_ordersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -1970,7 +1970,7 @@ export type OrderUncheckedCreateWithoutUserInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2029,7 +2029,7 @@ export type OrderCreateWithoutDelivery_addressInput = {
   restaurant: Prisma.RestaurantCreateNestedOneWithoutOrdersInput
   driver?: Prisma.DriverCreateNestedOneWithoutOrdersInput
   promo_code?: Prisma.PromoCodeCreateNestedOneWithoutOrdersInput
-  payment_method: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
+  payment_method?: Prisma.PaymentMethodCreateNestedOneWithoutOrdersInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   status_history?: Prisma.OrderStatusHistoryCreateNestedManyWithoutOrderInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutOrderInput
@@ -2044,7 +2044,7 @@ export type OrderUncheckedCreateWithoutDelivery_addressInput = {
   restaurant_id: string
   driver_id?: string | null
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2168,7 +2168,7 @@ export type OrderCreateManyDriverInput = {
   restaurant_id: string
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2195,7 +2195,7 @@ export type OrderUpdateWithoutDriverInput = {
   restaurant?: Prisma.RestaurantUpdateOneRequiredWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -2210,7 +2210,7 @@ export type OrderUncheckedUpdateWithoutDriverInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2234,7 +2234,7 @@ export type OrderUncheckedUpdateManyWithoutDriverInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2252,7 +2252,7 @@ export type OrderCreateManyRestaurantInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2279,7 +2279,7 @@ export type OrderUpdateWithoutRestaurantInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -2294,7 +2294,7 @@ export type OrderUncheckedUpdateWithoutRestaurantInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2318,7 +2318,7 @@ export type OrderUncheckedUpdateManyWithoutRestaurantInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2336,7 +2336,7 @@ export type OrderCreateManyPromo_codeInput = {
   restaurant_id: string
   driver_id?: string | null
   delivery_address_id: string
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2363,7 +2363,7 @@ export type OrderUpdateWithoutPromo_codeInput = {
   restaurant?: Prisma.RestaurantUpdateOneRequiredWithoutOrdersNestedInput
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -2378,7 +2378,7 @@ export type OrderUncheckedUpdateWithoutPromo_codeInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2402,7 +2402,7 @@ export type OrderUncheckedUpdateManyWithoutPromo_codeInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2420,7 +2420,7 @@ export type OrderCreateManyUserInput = {
   driver_id?: string | null
   delivery_address_id: string
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2447,7 +2447,7 @@ export type OrderUpdateWithoutUserInput = {
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   delivery_address?: Prisma.UserAddressUpdateOneRequiredWithoutDelivery_ordersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -2462,7 +2462,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2486,7 +2486,7 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delivery_address_id?: Prisma.StringFieldUpdateOperationsInput | string
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2504,7 +2504,7 @@ export type OrderCreateManyDelivery_addressInput = {
   restaurant_id: string
   driver_id?: string | null
   promo_code_id?: string | null
-  payment_method_id: string
+  payment_method_id?: string | null
   status: $Enums.OrderStatus
   subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2531,7 +2531,7 @@ export type OrderUpdateWithoutDelivery_addressInput = {
   restaurant?: Prisma.RestaurantUpdateOneRequiredWithoutOrdersNestedInput
   driver?: Prisma.DriverUpdateOneWithoutOrdersNestedInput
   promo_code?: Prisma.PromoCodeUpdateOneWithoutOrdersNestedInput
-  payment_method?: Prisma.PaymentMethodUpdateOneRequiredWithoutOrdersNestedInput
+  payment_method?: Prisma.PaymentMethodUpdateOneWithoutOrdersNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   status_history?: Prisma.OrderStatusHistoryUpdateManyWithoutOrderNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutOrderNestedInput
@@ -2546,7 +2546,7 @@ export type OrderUncheckedUpdateWithoutDelivery_addressInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2570,7 +2570,7 @@ export type OrderUncheckedUpdateManyWithoutDelivery_addressInput = {
   restaurant_id?: Prisma.StringFieldUpdateOperationsInput | string
   driver_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promo_code_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  payment_method_id?: Prisma.StringFieldUpdateOperationsInput | string
+  payment_method_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   delivery_fee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2764,7 +2764,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
   order_items?: boolean | Prisma.Order$order_itemsArgs<ExtArgs>
   status_history?: boolean | Prisma.Order$status_historyArgs<ExtArgs>
   reviews?: boolean | Prisma.Order$reviewsArgs<ExtArgs>
@@ -2796,7 +2796,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2821,7 +2821,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
@@ -2850,7 +2850,7 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
   order_items?: boolean | Prisma.Order$order_itemsArgs<ExtArgs>
   status_history?: boolean | Prisma.Order$status_historyArgs<ExtArgs>
   reviews?: boolean | Prisma.Order$reviewsArgs<ExtArgs>
@@ -2865,7 +2865,7 @@ export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
 }
 export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2873,7 +2873,7 @@ export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   driver?: boolean | Prisma.Order$driverArgs<ExtArgs>
   delivery_address?: boolean | Prisma.UserAddressDefaultArgs<ExtArgs>
   promo_code?: boolean | Prisma.Order$promo_codeArgs<ExtArgs>
-  payment_method?: boolean | Prisma.PaymentMethodDefaultArgs<ExtArgs>
+  payment_method?: boolean | Prisma.Order$payment_methodArgs<ExtArgs>
 }
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2884,7 +2884,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     driver: Prisma.$DriverPayload<ExtArgs> | null
     delivery_address: Prisma.$UserAddressPayload<ExtArgs>
     promo_code: Prisma.$PromoCodePayload<ExtArgs> | null
-    payment_method: Prisma.$PaymentMethodPayload<ExtArgs>
+    payment_method: Prisma.$PaymentMethodPayload<ExtArgs> | null
     order_items: Prisma.$OrderItemPayload<ExtArgs>[]
     status_history: Prisma.$OrderStatusHistoryPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
@@ -2899,7 +2899,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     driver_id: string | null
     delivery_address_id: string
     promo_code_id: string | null
-    payment_method_id: string
+    payment_method_id: string | null
     status: $Enums.OrderStatus
     subtotal: runtime.Decimal
     delivery_fee: runtime.Decimal
@@ -3308,7 +3308,7 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
   driver<T extends Prisma.Order$driverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$driverArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   delivery_address<T extends Prisma.UserAddressDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserAddressDefaultArgs<ExtArgs>>): Prisma.Prisma__UserAddressClient<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   promo_code<T extends Prisma.Order$promo_codeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$promo_codeArgs<ExtArgs>>): Prisma.Prisma__PromoCodeClient<runtime.Types.Result.GetResult<Prisma.$PromoCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  payment_method<T extends Prisma.PaymentMethodDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentMethodDefaultArgs<ExtArgs>>): Prisma.Prisma__PaymentMethodClient<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  payment_method<T extends Prisma.Order$payment_methodArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$payment_methodArgs<ExtArgs>>): Prisma.Prisma__PaymentMethodClient<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   order_items<T extends Prisma.Order$order_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$order_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   status_history<T extends Prisma.Order$status_historyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$status_historyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Order$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3796,6 +3796,25 @@ export type Order$promo_codeArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.PromoCodeInclude<ExtArgs> | null
   where?: Prisma.PromoCodeWhereInput
+}
+
+/**
+ * Order.payment_method
+ */
+export type Order$payment_methodArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentMethod
+   */
+  select?: Prisma.PaymentMethodSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentMethod
+   */
+  omit?: Prisma.PaymentMethodOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentMethodInclude<ExtArgs> | null
+  where?: Prisma.PaymentMethodWhereInput
 }
 
 /**

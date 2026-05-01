@@ -28,10 +28,12 @@ export type AggregateMenuItem = {
 
 export type MenuItemAvgAggregateOutputType = {
   price: runtime.Decimal | null
+  daily_stock: number | null
 }
 
 export type MenuItemSumAggregateOutputType = {
   price: runtime.Decimal | null
+  daily_stock: number | null
 }
 
 export type MenuItemMinAggregateOutputType = {
@@ -43,6 +45,7 @@ export type MenuItemMinAggregateOutputType = {
   price: runtime.Decimal | null
   is_available: boolean | null
   is_popular: boolean | null
+  daily_stock: number | null
 }
 
 export type MenuItemMaxAggregateOutputType = {
@@ -54,6 +57,7 @@ export type MenuItemMaxAggregateOutputType = {
   price: runtime.Decimal | null
   is_available: boolean | null
   is_popular: boolean | null
+  daily_stock: number | null
 }
 
 export type MenuItemCountAggregateOutputType = {
@@ -65,16 +69,19 @@ export type MenuItemCountAggregateOutputType = {
   price: number
   is_available: number
   is_popular: number
+  daily_stock: number
   _all: number
 }
 
 
 export type MenuItemAvgAggregateInputType = {
   price?: true
+  daily_stock?: true
 }
 
 export type MenuItemSumAggregateInputType = {
   price?: true
+  daily_stock?: true
 }
 
 export type MenuItemMinAggregateInputType = {
@@ -86,6 +93,7 @@ export type MenuItemMinAggregateInputType = {
   price?: true
   is_available?: true
   is_popular?: true
+  daily_stock?: true
 }
 
 export type MenuItemMaxAggregateInputType = {
@@ -97,6 +105,7 @@ export type MenuItemMaxAggregateInputType = {
   price?: true
   is_available?: true
   is_popular?: true
+  daily_stock?: true
 }
 
 export type MenuItemCountAggregateInputType = {
@@ -108,6 +117,7 @@ export type MenuItemCountAggregateInputType = {
   price?: true
   is_available?: true
   is_popular?: true
+  daily_stock?: true
   _all?: true
 }
 
@@ -206,6 +216,7 @@ export type MenuItemGroupByOutputType = {
   price: runtime.Decimal
   is_available: boolean
   is_popular: boolean
+  daily_stock: number | null
   _count: MenuItemCountAggregateOutputType | null
   _avg: MenuItemAvgAggregateOutputType | null
   _sum: MenuItemSumAggregateOutputType | null
@@ -240,6 +251,7 @@ export type MenuItemWhereInput = {
   price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFilter<"MenuItem"> | boolean
   is_popular?: Prisma.BoolFilter<"MenuItem"> | boolean
+  daily_stock?: Prisma.IntNullableFilter<"MenuItem"> | number | null
   category?: Prisma.XOR<Prisma.MenuCategoryScalarRelationFilter, Prisma.MenuCategoryWhereInput>
   options?: Prisma.MenuItemOptionListRelationFilter
   order_items?: Prisma.OrderItemListRelationFilter
@@ -254,6 +266,7 @@ export type MenuItemOrderByWithRelationInput = {
   price?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
   is_popular?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.MenuCategoryOrderByWithRelationInput
   options?: Prisma.MenuItemOptionOrderByRelationAggregateInput
   order_items?: Prisma.OrderItemOrderByRelationAggregateInput
@@ -271,6 +284,7 @@ export type MenuItemWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFilter<"MenuItem"> | boolean
   is_popular?: Prisma.BoolFilter<"MenuItem"> | boolean
+  daily_stock?: Prisma.IntNullableFilter<"MenuItem"> | number | null
   category?: Prisma.XOR<Prisma.MenuCategoryScalarRelationFilter, Prisma.MenuCategoryWhereInput>
   options?: Prisma.MenuItemOptionListRelationFilter
   order_items?: Prisma.OrderItemListRelationFilter
@@ -285,6 +299,7 @@ export type MenuItemOrderByWithAggregationInput = {
   price?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
   is_popular?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MenuItemCountOrderByAggregateInput
   _avg?: Prisma.MenuItemAvgOrderByAggregateInput
   _max?: Prisma.MenuItemMaxOrderByAggregateInput
@@ -304,6 +319,7 @@ export type MenuItemScalarWhereWithAggregatesInput = {
   price?: Prisma.DecimalWithAggregatesFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolWithAggregatesFilter<"MenuItem"> | boolean
   is_popular?: Prisma.BoolWithAggregatesFilter<"MenuItem"> | boolean
+  daily_stock?: Prisma.IntNullableWithAggregatesFilter<"MenuItem"> | number | null
 }
 
 export type MenuItemCreateInput = {
@@ -314,6 +330,7 @@ export type MenuItemCreateInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   category: Prisma.MenuCategoryCreateNestedOneWithoutMenu_itemsInput
   options?: Prisma.MenuItemOptionCreateNestedManyWithoutItemInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutMenu_itemInput
@@ -328,6 +345,7 @@ export type MenuItemUncheckedCreateInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   options?: Prisma.MenuItemOptionUncheckedCreateNestedManyWithoutItemInput
   order_items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenu_itemInput
 }
@@ -340,6 +358,7 @@ export type MenuItemUpdateInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.MenuCategoryUpdateOneRequiredWithoutMenu_itemsNestedInput
   options?: Prisma.MenuItemOptionUpdateManyWithoutItemNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutMenu_itemNestedInput
@@ -354,6 +373,7 @@ export type MenuItemUncheckedUpdateInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   options?: Prisma.MenuItemOptionUncheckedUpdateManyWithoutItemNestedInput
   order_items?: Prisma.OrderItemUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
@@ -367,6 +387,7 @@ export type MenuItemCreateManyInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
 }
 
 export type MenuItemUpdateManyMutationInput = {
@@ -377,6 +398,7 @@ export type MenuItemUpdateManyMutationInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type MenuItemUncheckedUpdateManyInput = {
@@ -388,6 +410,7 @@ export type MenuItemUncheckedUpdateManyInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type MenuItemListRelationFilter = {
@@ -409,10 +432,12 @@ export type MenuItemCountOrderByAggregateInput = {
   price?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
   is_popular?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrder
 }
 
 export type MenuItemAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrder
 }
 
 export type MenuItemMaxOrderByAggregateInput = {
@@ -424,6 +449,7 @@ export type MenuItemMaxOrderByAggregateInput = {
   price?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
   is_popular?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrder
 }
 
 export type MenuItemMinOrderByAggregateInput = {
@@ -435,10 +461,12 @@ export type MenuItemMinOrderByAggregateInput = {
   price?: Prisma.SortOrder
   is_available?: Prisma.SortOrder
   is_popular?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrder
 }
 
 export type MenuItemSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  daily_stock?: Prisma.SortOrder
 }
 
 export type MenuItemScalarRelationFilter = {
@@ -488,6 +516,14 @@ export type MenuItemUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type MenuItemCreateNestedOneWithoutOptionsInput = {
   create?: Prisma.XOR<Prisma.MenuItemCreateWithoutOptionsInput, Prisma.MenuItemUncheckedCreateWithoutOptionsInput>
   connectOrCreate?: Prisma.MenuItemCreateOrConnectWithoutOptionsInput
@@ -524,6 +560,7 @@ export type MenuItemCreateWithoutCategoryInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   options?: Prisma.MenuItemOptionCreateNestedManyWithoutItemInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutMenu_itemInput
 }
@@ -536,6 +573,7 @@ export type MenuItemUncheckedCreateWithoutCategoryInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   options?: Prisma.MenuItemOptionUncheckedCreateNestedManyWithoutItemInput
   order_items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenu_itemInput
 }
@@ -578,6 +616,7 @@ export type MenuItemScalarWhereInput = {
   price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFilter<"MenuItem"> | boolean
   is_popular?: Prisma.BoolFilter<"MenuItem"> | boolean
+  daily_stock?: Prisma.IntNullableFilter<"MenuItem"> | number | null
 }
 
 export type MenuItemCreateWithoutOptionsInput = {
@@ -588,6 +627,7 @@ export type MenuItemCreateWithoutOptionsInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   category: Prisma.MenuCategoryCreateNestedOneWithoutMenu_itemsInput
   order_items?: Prisma.OrderItemCreateNestedManyWithoutMenu_itemInput
 }
@@ -601,6 +641,7 @@ export type MenuItemUncheckedCreateWithoutOptionsInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   order_items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenu_itemInput
 }
 
@@ -628,6 +669,7 @@ export type MenuItemUpdateWithoutOptionsInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.MenuCategoryUpdateOneRequiredWithoutMenu_itemsNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutMenu_itemNestedInput
 }
@@ -641,6 +683,7 @@ export type MenuItemUncheckedUpdateWithoutOptionsInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   order_items?: Prisma.OrderItemUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
 
@@ -652,6 +695,7 @@ export type MenuItemCreateWithoutOrder_itemsInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   category: Prisma.MenuCategoryCreateNestedOneWithoutMenu_itemsInput
   options?: Prisma.MenuItemOptionCreateNestedManyWithoutItemInput
 }
@@ -665,6 +709,7 @@ export type MenuItemUncheckedCreateWithoutOrder_itemsInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
   options?: Prisma.MenuItemOptionUncheckedCreateNestedManyWithoutItemInput
 }
 
@@ -692,6 +737,7 @@ export type MenuItemUpdateWithoutOrder_itemsInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.MenuCategoryUpdateOneRequiredWithoutMenu_itemsNestedInput
   options?: Prisma.MenuItemOptionUpdateManyWithoutItemNestedInput
 }
@@ -705,6 +751,7 @@ export type MenuItemUncheckedUpdateWithoutOrder_itemsInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   options?: Prisma.MenuItemOptionUncheckedUpdateManyWithoutItemNestedInput
 }
 
@@ -716,6 +763,7 @@ export type MenuItemCreateManyCategoryInput = {
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available: boolean
   is_popular: boolean
+  daily_stock?: number | null
 }
 
 export type MenuItemUpdateWithoutCategoryInput = {
@@ -726,6 +774,7 @@ export type MenuItemUpdateWithoutCategoryInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   options?: Prisma.MenuItemOptionUpdateManyWithoutItemNestedInput
   order_items?: Prisma.OrderItemUpdateManyWithoutMenu_itemNestedInput
 }
@@ -738,6 +787,7 @@ export type MenuItemUncheckedUpdateWithoutCategoryInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   options?: Prisma.MenuItemOptionUncheckedUpdateManyWithoutItemNestedInput
   order_items?: Prisma.OrderItemUncheckedUpdateManyWithoutMenu_itemNestedInput
 }
@@ -750,6 +800,7 @@ export type MenuItemUncheckedUpdateManyWithoutCategoryInput = {
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  daily_stock?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -801,6 +852,7 @@ export type MenuItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   price?: boolean
   is_available?: boolean
   is_popular?: boolean
+  daily_stock?: boolean
   category?: boolean | Prisma.MenuCategoryDefaultArgs<ExtArgs>
   options?: boolean | Prisma.MenuItem$optionsArgs<ExtArgs>
   order_items?: boolean | Prisma.MenuItem$order_itemsArgs<ExtArgs>
@@ -816,6 +868,7 @@ export type MenuItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   price?: boolean
   is_available?: boolean
   is_popular?: boolean
+  daily_stock?: boolean
   category?: boolean | Prisma.MenuCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
 
@@ -828,6 +881,7 @@ export type MenuItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   price?: boolean
   is_available?: boolean
   is_popular?: boolean
+  daily_stock?: boolean
   category?: boolean | Prisma.MenuCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
 
@@ -840,9 +894,10 @@ export type MenuItemSelectScalar = {
   price?: boolean
   is_available?: boolean
   is_popular?: boolean
+  daily_stock?: boolean
 }
 
-export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category_id" | "name" | "description" | "photo_url" | "price" | "is_available" | "is_popular", ExtArgs["result"]["menuItem"]>
+export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category_id" | "name" | "description" | "photo_url" | "price" | "is_available" | "is_popular" | "daily_stock", ExtArgs["result"]["menuItem"]>
 export type MenuItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.MenuCategoryDefaultArgs<ExtArgs>
   options?: boolean | Prisma.MenuItem$optionsArgs<ExtArgs>
@@ -872,6 +927,7 @@ export type $MenuItemPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     price: runtime.Decimal
     is_available: boolean
     is_popular: boolean
+    daily_stock: number | null
   }, ExtArgs["result"]["menuItem"]>
   composites: {}
 }
@@ -1306,6 +1362,7 @@ export interface MenuItemFieldRefs {
   readonly price: Prisma.FieldRef<"MenuItem", 'Decimal'>
   readonly is_available: Prisma.FieldRef<"MenuItem", 'Boolean'>
   readonly is_popular: Prisma.FieldRef<"MenuItem", 'Boolean'>
+  readonly daily_stock: Prisma.FieldRef<"MenuItem", 'Int'>
 }
     
 

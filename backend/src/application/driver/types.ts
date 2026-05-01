@@ -1,0 +1,32 @@
+export type DriverProfile = {
+  id:            string;
+  userId:        string;
+  name:          string;
+  transportType: "bike" | "scooter" | "car";
+  isOnline:      boolean;
+  isVerified:    boolean;
+};
+
+export type AvailableDelivery = {
+  orderId:           string;
+  restaurantName:    string;
+  restaurantAddress: string;
+  deliveryAddress:   string;
+  itemCount:         number;
+  total:             number;
+  estimatedAt:       string;
+  createdAt:         string;
+};
+
+export type ActiveDelivery = {
+  orderId:           string;
+  restaurantName:    string;
+  restaurantAddress: string;
+  clientName:        string;
+  deliveryStreet:    string;
+  deliveryCity:      string;
+  itemCount:         number;
+  total:             number;
+  estimatedAt:       string;
+  orderStatus:       string;
+};

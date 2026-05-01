@@ -31,6 +31,8 @@ export type UserMinAggregateOutputType = {
   name: string | null
   photo_url: string | null
   phone_verified: boolean | null
+  role: $Enums.Role | null
+  stripe_customer_id: string | null
   created_at: Date | null
 }
 
@@ -41,6 +43,8 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   photo_url: string | null
   phone_verified: boolean | null
+  role: $Enums.Role | null
+  stripe_customer_id: string | null
   created_at: Date | null
 }
 
@@ -53,6 +57,8 @@ export type UserCountAggregateOutputType = {
   preferences: number
   allergies: number
   phone_verified: number
+  role: number
+  stripe_customer_id: number
   created_at: number
   _all: number
 }
@@ -65,6 +71,8 @@ export type UserMinAggregateInputType = {
   name?: true
   photo_url?: true
   phone_verified?: true
+  role?: true
+  stripe_customer_id?: true
   created_at?: true
 }
 
@@ -75,6 +83,8 @@ export type UserMaxAggregateInputType = {
   name?: true
   photo_url?: true
   phone_verified?: true
+  role?: true
+  stripe_customer_id?: true
   created_at?: true
 }
 
@@ -87,6 +97,8 @@ export type UserCountAggregateInputType = {
   preferences?: true
   allergies?: true
   phone_verified?: true
+  role?: true
+  stripe_customer_id?: true
   created_at?: true
   _all?: true
 }
@@ -172,6 +184,8 @@ export type UserGroupByOutputType = {
   preferences: runtime.JsonValue | null
   allergies: runtime.JsonValue | null
   phone_verified: boolean
+  role: $Enums.Role
+  stripe_customer_id: string | null
   created_at: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -205,6 +219,8 @@ export type UserWhereInput = {
   preferences?: Prisma.JsonNullableFilter<"User">
   allergies?: Prisma.JsonNullableFilter<"User">
   phone_verified?: Prisma.BoolFilter<"User"> | boolean
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  stripe_customer_id?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   restaurants?: Prisma.RestaurantListRelationFilter
   orders?: Prisma.OrderListRelationFilter
@@ -217,6 +233,10 @@ export type UserWhereInput = {
   addresses?: Prisma.UserAddressListRelationFilter
   paymentMethods?: Prisma.PaymentMethodListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  auth_identities?: Prisma.AuthIdentityListRelationFilter
+  refresh_tokens?: Prisma.RefreshTokenListRelationFilter
+  driver_profile?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
+  documents?: Prisma.DocumentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -228,6 +248,8 @@ export type UserOrderByWithRelationInput = {
   preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   allergies?: Prisma.SortOrderInput | Prisma.SortOrder
   phone_verified?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  stripe_customer_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   restaurants?: Prisma.RestaurantOrderByRelationAggregateInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
@@ -240,6 +262,10 @@ export type UserOrderByWithRelationInput = {
   addresses?: Prisma.UserAddressOrderByRelationAggregateInput
   paymentMethods?: Prisma.PaymentMethodOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  auth_identities?: Prisma.AuthIdentityOrderByRelationAggregateInput
+  refresh_tokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  driver_profile?: Prisma.DriverOrderByWithRelationInput
+  documents?: Prisma.DocumentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +280,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   preferences?: Prisma.JsonNullableFilter<"User">
   allergies?: Prisma.JsonNullableFilter<"User">
   phone_verified?: Prisma.BoolFilter<"User"> | boolean
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  stripe_customer_id?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   restaurants?: Prisma.RestaurantListRelationFilter
   orders?: Prisma.OrderListRelationFilter
@@ -266,6 +294,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   addresses?: Prisma.UserAddressListRelationFilter
   paymentMethods?: Prisma.PaymentMethodListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  auth_identities?: Prisma.AuthIdentityListRelationFilter
+  refresh_tokens?: Prisma.RefreshTokenListRelationFilter
+  driver_profile?: Prisma.XOR<Prisma.DriverNullableScalarRelationFilter, Prisma.DriverWhereInput> | null
+  documents?: Prisma.DocumentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -277,6 +309,8 @@ export type UserOrderByWithAggregationInput = {
   preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   allergies?: Prisma.SortOrderInput | Prisma.SortOrder
   phone_verified?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  stripe_customer_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -295,6 +329,8 @@ export type UserScalarWhereWithAggregatesInput = {
   preferences?: Prisma.JsonNullableWithAggregatesFilter<"User">
   allergies?: Prisma.JsonNullableWithAggregatesFilter<"User">
   phone_verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  stripe_customer_id?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -307,6 +343,8 @@ export type UserCreateInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -319,6 +357,10 @@ export type UserCreateInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -330,6 +372,8 @@ export type UserUncheckedCreateInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -342,6 +386,10 @@ export type UserUncheckedCreateInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -353,6 +401,8 @@ export type UserUpdateInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -365,6 +415,10 @@ export type UserUpdateInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -376,6 +430,8 @@ export type UserUncheckedUpdateInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -388,6 +444,10 @@ export type UserUncheckedUpdateInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -399,6 +459,8 @@ export type UserCreateManyInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
 }
 
@@ -411,6 +473,8 @@ export type UserUpdateManyMutationInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -423,7 +487,14 @@ export type UserUncheckedUpdateManyInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserScalarRelationFilter = {
@@ -440,6 +511,8 @@ export type UserCountOrderByAggregateInput = {
   preferences?: Prisma.SortOrder
   allergies?: Prisma.SortOrder
   phone_verified?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  stripe_customer_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
 }
 
@@ -450,6 +523,8 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   photo_url?: Prisma.SortOrder
   phone_verified?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  stripe_customer_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
 }
 
@@ -460,7 +535,25 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   photo_url?: Prisma.SortOrder
   phone_verified?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  stripe_customer_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+}
+
+export type UserCreateNestedOneWithoutDriver_profileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDriver_profileInput, Prisma.UserUncheckedCreateWithoutDriver_profileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDriver_profileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDriver_profileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDriver_profileInput, Prisma.UserUncheckedCreateWithoutDriver_profileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDriver_profileInput
+  upsert?: Prisma.UserUpsertWithoutDriver_profileInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDriver_profileInput, Prisma.UserUpdateWithoutDriver_profileInput>, Prisma.UserUncheckedUpdateWithoutDriver_profileInput>
 }
 
 export type UserCreateNestedOneWithoutRestaurantsInput = {
@@ -575,6 +668,52 @@ export type UserUpdateOneRequiredWithoutReferrals_receivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReferrals_receivedInput, Prisma.UserUpdateWithoutReferrals_receivedInput>, Prisma.UserUncheckedUpdateWithoutReferrals_receivedInput>
 }
 
+export type UserCreateNestedOneWithoutDocumentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentsInput, Prisma.UserUncheckedCreateWithoutDocumentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentsInput, Prisma.UserUncheckedCreateWithoutDocumentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentsInput
+  upsert?: Prisma.UserUpsertWithoutDocumentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentsInput, Prisma.UserUpdateWithoutDocumentsInput>, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
+}
+
+export type EnumRoleFieldUpdateOperationsInput = {
+  set?: $Enums.Role
+}
+
+export type UserCreateNestedOneWithoutAuth_identitiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuth_identitiesInput, Prisma.UserUncheckedCreateWithoutAuth_identitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuth_identitiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAuth_identitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuth_identitiesInput, Prisma.UserUncheckedCreateWithoutAuth_identitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuth_identitiesInput
+  upsert?: Prisma.UserUpsertWithoutAuth_identitiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuth_identitiesInput, Prisma.UserUpdateWithoutAuth_identitiesInput>, Prisma.UserUncheckedUpdateWithoutAuth_identitiesInput>
+}
+
+export type UserCreateNestedOneWithoutRefresh_tokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefresh_tokensInput, Prisma.UserUncheckedCreateWithoutRefresh_tokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefresh_tokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRefresh_tokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefresh_tokensInput, Prisma.UserUncheckedCreateWithoutRefresh_tokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefresh_tokensInput
+  upsert?: Prisma.UserUpsertWithoutRefresh_tokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefresh_tokensInput, Prisma.UserUpdateWithoutRefresh_tokensInput>, Prisma.UserUncheckedUpdateWithoutRefresh_tokensInput>
+}
+
 export type UserCreateNestedOneWithoutAddressesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAddressesInput, Prisma.UserUncheckedCreateWithoutAddressesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAddressesInput
@@ -617,6 +756,134 @@ export type UserUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.UserUpdateWithoutSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type UserCreateWithoutDriver_profileInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDriver_profileInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDriver_profileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDriver_profileInput, Prisma.UserUncheckedCreateWithoutDriver_profileInput>
+}
+
+export type UserUpsertWithoutDriver_profileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDriver_profileInput, Prisma.UserUncheckedUpdateWithoutDriver_profileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDriver_profileInput, Prisma.UserUncheckedCreateWithoutDriver_profileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDriver_profileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDriver_profileInput, Prisma.UserUncheckedUpdateWithoutDriver_profileInput>
+}
+
+export type UserUpdateWithoutDriver_profileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDriver_profileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutRestaurantsInput = {
   id?: string
   email: string
@@ -626,6 +893,8 @@ export type UserCreateWithoutRestaurantsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
@@ -637,6 +906,10 @@ export type UserCreateWithoutRestaurantsInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRestaurantsInput = {
@@ -648,6 +921,8 @@ export type UserUncheckedCreateWithoutRestaurantsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -659,6 +934,10 @@ export type UserUncheckedCreateWithoutRestaurantsInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRestaurantsInput = {
@@ -686,6 +965,8 @@ export type UserUpdateWithoutRestaurantsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
@@ -697,6 +978,10 @@ export type UserUpdateWithoutRestaurantsInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRestaurantsInput = {
@@ -708,6 +993,8 @@ export type UserUncheckedUpdateWithoutRestaurantsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -719,6 +1006,10 @@ export type UserUncheckedUpdateWithoutRestaurantsInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -730,6 +1021,8 @@ export type UserCreateWithoutNotificationsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -741,6 +1034,10 @@ export type UserCreateWithoutNotificationsInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -752,6 +1049,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -763,6 +1062,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -790,6 +1093,8 @@ export type UserUpdateWithoutNotificationsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -801,6 +1106,10 @@ export type UserUpdateWithoutNotificationsInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -812,6 +1121,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -823,6 +1134,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupport_ticketsInput = {
@@ -834,6 +1149,8 @@ export type UserCreateWithoutSupport_ticketsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -845,6 +1162,10 @@ export type UserCreateWithoutSupport_ticketsInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupport_ticketsInput = {
@@ -856,6 +1177,8 @@ export type UserUncheckedCreateWithoutSupport_ticketsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -867,6 +1190,10 @@ export type UserUncheckedCreateWithoutSupport_ticketsInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupport_ticketsInput = {
@@ -894,6 +1221,8 @@ export type UserUpdateWithoutSupport_ticketsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -905,6 +1234,10 @@ export type UserUpdateWithoutSupport_ticketsInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupport_ticketsInput = {
@@ -916,6 +1249,8 @@ export type UserUncheckedUpdateWithoutSupport_ticketsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -927,6 +1262,10 @@ export type UserUncheckedUpdateWithoutSupport_ticketsInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrdersInput = {
@@ -938,6 +1277,8 @@ export type UserCreateWithoutOrdersInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
@@ -949,6 +1290,10 @@ export type UserCreateWithoutOrdersInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrdersInput = {
@@ -960,6 +1305,8 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -971,6 +1318,10 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrdersInput = {
@@ -998,6 +1349,8 @@ export type UserUpdateWithoutOrdersInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
@@ -1009,6 +1362,10 @@ export type UserUpdateWithoutOrdersInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -1020,6 +1377,8 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1031,6 +1390,10 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -1042,6 +1405,8 @@ export type UserCreateWithoutReviewsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1053,6 +1418,10 @@ export type UserCreateWithoutReviewsInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -1064,6 +1433,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1075,6 +1446,10 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -1102,6 +1477,8 @@ export type UserUpdateWithoutReviewsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1113,6 +1490,10 @@ export type UserUpdateWithoutReviewsInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -1124,6 +1505,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1135,6 +1518,10 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLoyalty_pointsInput = {
@@ -1146,6 +1533,8 @@ export type UserCreateWithoutLoyalty_pointsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1157,6 +1546,10 @@ export type UserCreateWithoutLoyalty_pointsInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoyalty_pointsInput = {
@@ -1168,6 +1561,8 @@ export type UserUncheckedCreateWithoutLoyalty_pointsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1179,6 +1574,10 @@ export type UserUncheckedCreateWithoutLoyalty_pointsInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoyalty_pointsInput = {
@@ -1206,6 +1605,8 @@ export type UserUpdateWithoutLoyalty_pointsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1217,6 +1618,10 @@ export type UserUpdateWithoutLoyalty_pointsInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoyalty_pointsInput = {
@@ -1228,6 +1633,8 @@ export type UserUncheckedUpdateWithoutLoyalty_pointsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1239,6 +1646,10 @@ export type UserUncheckedUpdateWithoutLoyalty_pointsInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferrals_sentInput = {
@@ -1250,6 +1661,8 @@ export type UserCreateWithoutReferrals_sentInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1261,6 +1674,10 @@ export type UserCreateWithoutReferrals_sentInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferrals_sentInput = {
@@ -1272,6 +1689,8 @@ export type UserUncheckedCreateWithoutReferrals_sentInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1283,6 +1702,10 @@ export type UserUncheckedCreateWithoutReferrals_sentInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferrals_sentInput = {
@@ -1299,6 +1722,8 @@ export type UserCreateWithoutReferrals_receivedInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1310,6 +1735,10 @@ export type UserCreateWithoutReferrals_receivedInput = {
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferrals_receivedInput = {
@@ -1321,6 +1750,8 @@ export type UserUncheckedCreateWithoutReferrals_receivedInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1332,6 +1763,10 @@ export type UserUncheckedCreateWithoutReferrals_receivedInput = {
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferrals_receivedInput = {
@@ -1359,6 +1794,8 @@ export type UserUpdateWithoutReferrals_sentInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1370,6 +1807,10 @@ export type UserUpdateWithoutReferrals_sentInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferrals_sentInput = {
@@ -1381,6 +1822,8 @@ export type UserUncheckedUpdateWithoutReferrals_sentInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1392,6 +1835,10 @@ export type UserUncheckedUpdateWithoutReferrals_sentInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferrals_receivedInput = {
@@ -1414,6 +1861,8 @@ export type UserUpdateWithoutReferrals_receivedInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1425,6 +1874,10 @@ export type UserUpdateWithoutReferrals_receivedInput = {
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferrals_receivedInput = {
@@ -1436,6 +1889,8 @@ export type UserUncheckedUpdateWithoutReferrals_receivedInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1447,6 +1902,394 @@ export type UserUncheckedUpdateWithoutReferrals_receivedInput = {
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDocumentsInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDocumentsInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDocumentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentsInput, Prisma.UserUncheckedCreateWithoutDocumentsInput>
+}
+
+export type UserUpsertWithoutDocumentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDocumentsInput, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentsInput, Prisma.UserUncheckedCreateWithoutDocumentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDocumentsInput, Prisma.UserUncheckedUpdateWithoutDocumentsInput>
+}
+
+export type UserUpdateWithoutDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAuth_identitiesInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuth_identitiesInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuth_identitiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuth_identitiesInput, Prisma.UserUncheckedCreateWithoutAuth_identitiesInput>
+}
+
+export type UserUpsertWithoutAuth_identitiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuth_identitiesInput, Prisma.UserUncheckedUpdateWithoutAuth_identitiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuth_identitiesInput, Prisma.UserUncheckedCreateWithoutAuth_identitiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuth_identitiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuth_identitiesInput, Prisma.UserUncheckedUpdateWithoutAuth_identitiesInput>
+}
+
+export type UserUpdateWithoutAuth_identitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuth_identitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRefresh_tokensInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRefresh_tokensInput = {
+  id?: string
+  email: string
+  phone: string
+  name: string
+  photo_url?: string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
+  created_at?: Date | string
+  restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  support_tickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedCreateNestedManyWithoutUserInput
+  referrals_sent?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRefresh_tokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefresh_tokensInput, Prisma.UserUncheckedCreateWithoutRefresh_tokensInput>
+}
+
+export type UserUpsertWithoutRefresh_tokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRefresh_tokensInput, Prisma.UserUncheckedUpdateWithoutRefresh_tokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefresh_tokensInput, Prisma.UserUncheckedCreateWithoutRefresh_tokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRefresh_tokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRefresh_tokensInput, Prisma.UserUncheckedUpdateWithoutRefresh_tokensInput>
+}
+
+export type UserUpdateWithoutRefresh_tokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRefresh_tokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  support_tickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  loyalty_points?: Prisma.LoyaltyPointUncheckedUpdateManyWithoutUserNestedInput
+  referrals_sent?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAddressesInput = {
@@ -1458,6 +2301,8 @@ export type UserCreateWithoutAddressesInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1469,6 +2314,10 @@ export type UserCreateWithoutAddressesInput = {
   referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAddressesInput = {
@@ -1480,6 +2329,8 @@ export type UserUncheckedCreateWithoutAddressesInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1491,6 +2342,10 @@ export type UserUncheckedCreateWithoutAddressesInput = {
   referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAddressesInput = {
@@ -1518,6 +2373,8 @@ export type UserUpdateWithoutAddressesInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1529,6 +2386,10 @@ export type UserUpdateWithoutAddressesInput = {
   referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAddressesInput = {
@@ -1540,6 +2401,8 @@ export type UserUncheckedUpdateWithoutAddressesInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1551,6 +2414,10 @@ export type UserUncheckedUpdateWithoutAddressesInput = {
   referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentMethodsInput = {
@@ -1562,6 +2429,8 @@ export type UserCreateWithoutPaymentMethodsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1573,6 +2442,10 @@ export type UserCreateWithoutPaymentMethodsInput = {
   referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
@@ -1584,6 +2457,8 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1595,6 +2470,10 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
@@ -1622,6 +2501,8 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1633,6 +2514,10 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
@@ -1644,6 +2529,8 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1655,6 +2542,10 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionsInput = {
@@ -1666,6 +2557,8 @@ export type UserCreateWithoutSubscriptionsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -1677,6 +2570,10 @@ export type UserCreateWithoutSubscriptionsInput = {
   referrals_received?: Prisma.ReferralCreateNestedManyWithoutReferredInput
   addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -1688,6 +2585,8 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified: boolean
+  role?: $Enums.Role
+  stripe_customer_id?: string | null
   created_at?: Date | string
   restaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutOwnerInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1699,6 +2598,10 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   referrals_received?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferredInput
   addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  auth_identities?: Prisma.AuthIdentityUncheckedCreateNestedManyWithoutUserInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  driver_profile?: Prisma.DriverUncheckedCreateNestedOneWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -1726,6 +2629,8 @@ export type UserUpdateWithoutSubscriptionsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -1737,6 +2642,10 @@ export type UserUpdateWithoutSubscriptionsInput = {
   referrals_received?: Prisma.ReferralUpdateManyWithoutReferredNestedInput
   addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -1748,6 +2657,8 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   preferences?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   allergies?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  stripe_customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutOwnerNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1759,6 +2670,10 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   referrals_received?: Prisma.ReferralUncheckedUpdateManyWithoutReferredNestedInput
   addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  auth_identities?: Prisma.AuthIdentityUncheckedUpdateManyWithoutUserNestedInput
+  refresh_tokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  driver_profile?: Prisma.DriverUncheckedUpdateOneWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1778,6 +2693,9 @@ export type UserCountOutputType = {
   addresses: number
   paymentMethods: number
   subscriptions: number
+  auth_identities: number
+  refresh_tokens: number
+  documents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1792,6 +2710,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   addresses?: boolean | UserCountOutputTypeCountAddressesArgs
   paymentMethods?: boolean | UserCountOutputTypeCountPaymentMethodsArgs
   subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+  auth_identities?: boolean | UserCountOutputTypeCountAuth_identitiesArgs
+  refresh_tokens?: boolean | UserCountOutputTypeCountRefresh_tokensArgs
+  documents?: boolean | UserCountOutputTypeCountDocumentsArgs
 }
 
 /**
@@ -1881,6 +2802,27 @@ export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.SubscriptionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuth_identitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuthIdentityWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRefresh_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1891,6 +2833,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   preferences?: boolean
   allergies?: boolean
   phone_verified?: boolean
+  role?: boolean
+  stripe_customer_id?: boolean
   created_at?: boolean
   restaurants?: boolean | Prisma.User$restaurantsArgs<ExtArgs>
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
@@ -1903,6 +2847,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   addresses?: boolean | Prisma.User$addressesArgs<ExtArgs>
   paymentMethods?: boolean | Prisma.User$paymentMethodsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  auth_identities?: boolean | Prisma.User$auth_identitiesArgs<ExtArgs>
+  refresh_tokens?: boolean | Prisma.User$refresh_tokensArgs<ExtArgs>
+  driver_profile?: boolean | Prisma.User$driver_profileArgs<ExtArgs>
+  documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1915,6 +2863,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   preferences?: boolean
   allergies?: boolean
   phone_verified?: boolean
+  role?: boolean
+  stripe_customer_id?: boolean
   created_at?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1927,6 +2877,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   preferences?: boolean
   allergies?: boolean
   phone_verified?: boolean
+  role?: boolean
+  stripe_customer_id?: boolean
   created_at?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -1939,10 +2891,12 @@ export type UserSelectScalar = {
   preferences?: boolean
   allergies?: boolean
   phone_verified?: boolean
+  role?: boolean
+  stripe_customer_id?: boolean
   created_at?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "name" | "photo_url" | "preferences" | "allergies" | "phone_verified" | "created_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "name" | "photo_url" | "preferences" | "allergies" | "phone_verified" | "role" | "stripe_customer_id" | "created_at", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   restaurants?: boolean | Prisma.User$restaurantsArgs<ExtArgs>
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
@@ -1955,6 +2909,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   addresses?: boolean | Prisma.User$addressesArgs<ExtArgs>
   paymentMethods?: boolean | Prisma.User$paymentMethodsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  auth_identities?: boolean | Prisma.User$auth_identitiesArgs<ExtArgs>
+  refresh_tokens?: boolean | Prisma.User$refresh_tokensArgs<ExtArgs>
+  driver_profile?: boolean | Prisma.User$driver_profileArgs<ExtArgs>
+  documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1974,6 +2932,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     addresses: Prisma.$UserAddressPayload<ExtArgs>[]
     paymentMethods: Prisma.$PaymentMethodPayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    auth_identities: Prisma.$AuthIdentityPayload<ExtArgs>[]
+    refresh_tokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    driver_profile: Prisma.$DriverPayload<ExtArgs> | null
+    documents: Prisma.$DocumentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1984,6 +2946,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     preferences: runtime.JsonValue | null
     allergies: runtime.JsonValue | null
     phone_verified: boolean
+    role: $Enums.Role
+    stripe_customer_id: string | null
     created_at: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -2390,6 +3354,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   addresses<T extends Prisma.User$addressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentMethods<T extends Prisma.User$paymentMethodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentMethodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auth_identities<T extends Prisma.User$auth_identitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auth_identitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuthIdentityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refresh_tokens<T extends Prisma.User$refresh_tokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refresh_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  driver_profile<T extends Prisma.User$driver_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$driver_profileArgs<ExtArgs>>): Prisma.Prisma__DriverClient<runtime.Types.Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2427,6 +3395,8 @@ export interface UserFieldRefs {
   readonly preferences: Prisma.FieldRef<"User", 'Json'>
   readonly allergies: Prisma.FieldRef<"User", 'Json'>
   readonly phone_verified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly stripe_customer_id: Prisma.FieldRef<"User", 'String'>
   readonly created_at: Prisma.FieldRef<"User", 'DateTime'>
 }
     
@@ -3082,6 +4052,97 @@ export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.auth_identities
+ */
+export type User$auth_identitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuthIdentity
+   */
+  select?: Prisma.AuthIdentitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuthIdentity
+   */
+  omit?: Prisma.AuthIdentityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuthIdentityInclude<ExtArgs> | null
+  where?: Prisma.AuthIdentityWhereInput
+  orderBy?: Prisma.AuthIdentityOrderByWithRelationInput | Prisma.AuthIdentityOrderByWithRelationInput[]
+  cursor?: Prisma.AuthIdentityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuthIdentityScalarFieldEnum | Prisma.AuthIdentityScalarFieldEnum[]
+}
+
+/**
+ * User.refresh_tokens
+ */
+export type User$refresh_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+}
+
+/**
+ * User.driver_profile
+ */
+export type User$driver_profileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Driver
+   */
+  select?: Prisma.DriverSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Driver
+   */
+  omit?: Prisma.DriverOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DriverInclude<ExtArgs> | null
+  where?: Prisma.DriverWhereInput
+}
+
+/**
+ * User.documents
+ */
+export type User$documentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Document
+   */
+  select?: Prisma.DocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Document
+   */
+  omit?: Prisma.DocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentInclude<ExtArgs> | null
+  where?: Prisma.DocumentWhereInput
+  orderBy?: Prisma.DocumentOrderByWithRelationInput | Prisma.DocumentOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentScalarFieldEnum | Prisma.DocumentScalarFieldEnum[]
 }
 
 /**

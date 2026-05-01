@@ -1,0 +1,12 @@
+.map-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* maplibre internal canvas will fill the container */
+.map-wrapper .mapboxgl-canvas,
+.map-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

@@ -22,10 +22,12 @@ model Driver {
     lng            Float
     rating_avg     Float?
     is_verified    Boolean
+    user_id        String?         @unique
     created_at     DateTime        @default(now())
     earnings       DriverEarning[] @relation("DriverEarnings")
     orders         Order[]         @relation("DriverOrders")
     reviews        Review[]        @relation("DriverReviews")
+    user           User?           @relation("DriverUser", fields: [user_id], references: [id])
 
     @@index([is_online])
     @@index([transport_type])
@@ -119,7 +121,8 @@ model MenuItem {
     price        Decimal
     is_available Boolean
     is_popular   Boolean
-    category     MenuCategory     @relation(fields: [category_id], references: [id], name: "CategoryItems")
+    daily_stock  Int?
+    category     MenuCategory     @relation(fields: [category_id], references: [id], name: "CategoryItems", onDelete: Cascade)
     options      MenuItemOption[] @relation("ItemOptions")
     order_items  OrderItem[]      @relation("MenuItemOrderItems")
 
@@ -135,7 +138,7 @@ model MenuItemOption {
     name        String
     type        MenuItemOptionType
     is_required Boolean
-    item        MenuItem              @relation(fields: [item_id], references: [id], name: "ItemOptions")
+    item        MenuItem              @relation(fields: [item_id], references: [id], name: "ItemOptions", onDelete: Cascade)
     values      MenuItemOptionValue[] @relation("OptionValues")
 
     @@index([item_id])
@@ -243,7 +246,7 @@ model Order {
     driver_id             String?
     delivery_address_id   String
     promo_code_id         String?
-    payment_method_id     String
+    payment_method_id     String?
     status                OrderStatus
     subtotal              Decimal
     delivery_fee          Decimal
@@ -258,7 +261,7 @@ model Order {
     driver                Driver?              @relation("DriverOrders", fields: [driver_id], references: [id])
     delivery_address      UserAddress          @relation("OrderDeliveryAddress", fields: [delivery_address_id], references: [id])
     promo_code            PromoCode?           @relation("OrderPromoCode", fields: [promo_code_id], references: [id])
-    payment_method        PaymentMethod        @relation("OrderPaymentMethod", fields: [payment_method_id], references: [id])
+    payment_method        PaymentMethod?       @relation("OrderPaymentMethod", fields: [payment_method_id], references: [id])
     order_items           OrderItem[]
     status_history        OrderStatusHistory[]
     reviews               Review[]             @relation("OrderReviews")
@@ -280,6 +283,7 @@ enum OrderStatus {
     created
     confirmed
     prepared
+    delivering
     delivered
     cancelled
 }
@@ -416,6 +420,45 @@ enum ReferralStatus {
 // --- user_models.prisma.part ---
 // --- user_models.prisma ---
 
+enum Role {
+    CLIENT
+    RESTAURANT_OWNER
+    DRIVER
+    ADMIN
+}
+
+enum DocumentType {
+    kbis
+    id_card
+    driving_license
+    vehicle_insurance
+    vehicle_registration
+    food_hygiene
+}
+
+enum DocumentStatus {
+    pending
+    approved
+    rejected
+}
+
+model Document {
+    id            String         @id @default(uuid())
+    user_id       String
+    type          DocumentType
+    file_path     String
+    mime_type     String
+    status        DocumentStatus @default(pending)
+    reject_reason String?
+    created_at    DateTime       @default(now())
+    reviewed_at   DateTime?
+    user          User           @relation("UserDocuments", fields: [user_id], references: [id])
+
+    @@index([user_id])
+    @@index([status])
+    @@index([type])
+}
+
 enum PaymentType {
     cb
     paypal
@@ -434,6 +477,13 @@ enum SubscriptionStatus {
     expired
 }
 
+enum AuthProvider {
+    password
+    phone
+    google
+    apple
+}
+
 model User {
     id                 String          @id @default(uuid())
     email              String          @unique
@@ -443,6 +493,8 @@ model User {
     preferences        Json?
     allergies          Json?
     phone_verified     Boolean
+    role               Role            @default(CLIENT)
+    stripe_customer_id String?
     created_at         DateTime        @default(now())
     restaurants        Restaurant[]    @relation("UserRestaurants")
     orders             Order[]         @relation("UserOrders")
@@ -455,8 +507,39 @@ model User {
     addresses          UserAddress[]
     paymentMethods     PaymentMethod[]
     subscriptions      Subscription[]
+    auth_identities    AuthIdentity[]
+    refresh_tokens     RefreshToken[]
+    driver_profile     Driver?         @relation("DriverUser")
+    documents          Document[]      @relation("UserDocuments")
 
     @@index([created_at])
+}
+
+model AuthIdentity {
+    id               String       @id @default(uuid())
+    user_id          String
+    provider         AuthProvider
+    provider_user_id String
+    password_hash    String?
+    created_at       DateTime     @default(now())
+    user             User         @relation(fields: [user_id], references: [id])
+
+    @@unique([provider, provider_user_id])
+    @@index([user_id])
+    @@index([provider])
+}
+
+model RefreshToken {
+    id         String   @id @default(uuid())
+    user_id    String
+    token_hash String   @unique
+    expires_at DateTime
+    revoked_at DateTime?
+    created_at DateTime @default(now())
+    user       User     @relation(fields: [user_id], references: [id])
+
+    @@index([user_id])
+    @@index([expires_at])
 }
 
 model UserAddress {
@@ -479,9 +562,10 @@ model PaymentMethod {
     id           String      @id @default(uuid())
     user_id      String
     type         PaymentType
-    stripe_token String
-    last4        String
+    stripe_token String?
+    label        String
     is_default   Boolean
+    created_at   DateTime    @default(now())
     user         User        @relation(fields: [user_id], references: [id])
     orders       Order[]     @relation("OrderPaymentMethod")
 

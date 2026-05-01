@@ -84,6 +84,7 @@ export const OrderStatus = {
   created: 'created',
   confirmed: 'confirmed',
   prepared: 'prepared',
+  delivering: 'delivering',
   delivered: 'delivered',
   cancelled: 'cancelled'
 } as const
@@ -117,6 +118,37 @@ export const ReferralStatus = {
 export type ReferralStatus = (typeof ReferralStatus)[keyof typeof ReferralStatus]
 
 
+export const Role = {
+  CLIENT: 'CLIENT',
+  RESTAURANT_OWNER: 'RESTAURANT_OWNER',
+  DRIVER: 'DRIVER',
+  ADMIN: 'ADMIN'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const DocumentType = {
+  kbis: 'kbis',
+  id_card: 'id_card',
+  driving_license: 'driving_license',
+  vehicle_insurance: 'vehicle_insurance',
+  vehicle_registration: 'vehicle_registration',
+  food_hygiene: 'food_hygiene'
+} as const
+
+export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType]
+
+
+export const DocumentStatus = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
+} as const
+
+export type DocumentStatus = (typeof DocumentStatus)[keyof typeof DocumentStatus]
+
+
 export const PaymentType = {
   cb: 'cb',
   paypal: 'paypal',
@@ -142,3 +174,13 @@ export const SubscriptionStatus = {
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const AuthProvider = {
+  password: 'password',
+  phone: 'phone',
+  google: 'google',
+  apple: 'apple'
+} as const
+
+export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]

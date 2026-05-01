@@ -402,7 +402,10 @@ export const ModelName = {
   PromoCode: 'PromoCode',
   LoyaltyPoint: 'LoyaltyPoint',
   Referral: 'Referral',
+  Document: 'Document',
   User: 'User',
+  AuthIdentity: 'AuthIdentity',
+  RefreshToken: 'RefreshToken',
   UserAddress: 'UserAddress',
   PaymentMethod: 'PaymentMethod',
   Subscription: 'Subscription'
@@ -421,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "driver" | "driverEarning" | "restaurant" | "menuCategory" | "menuItem" | "menuItemOption" | "menuItemOptionValue" | "notification" | "supportTicket" | "supportMessage" | "order" | "orderItem" | "orderItemSelection" | "orderStatusHistory" | "review" | "promoCode" | "loyaltyPoint" | "referral" | "user" | "userAddress" | "paymentMethod" | "subscription"
+    modelProps: "driver" | "driverEarning" | "restaurant" | "menuCategory" | "menuItem" | "menuItemOption" | "menuItemOptionValue" | "notification" | "supportTicket" | "supportMessage" | "order" | "orderItem" | "orderItemSelection" | "orderStatusHistory" | "review" | "promoCode" | "loyaltyPoint" | "referral" | "document" | "user" | "authIdentity" | "refreshToken" | "userAddress" | "paymentMethod" | "subscription"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1757,6 +1760,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Document: {
+      payload: Prisma.$DocumentPayload<ExtArgs>
+      fields: Prisma.DocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.DocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        findMany: {
+          args: Prisma.DocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+        }
+        create: {
+          args: Prisma.DocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        createMany: {
+          args: Prisma.DocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.DocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        update: {
+          args: Prisma.DocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.DocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.DocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.DocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocument>
+        }
+        groupBy: {
+          args: Prisma.DocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -1828,6 +1905,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    AuthIdentity: {
+      payload: Prisma.$AuthIdentityPayload<ExtArgs>
+      fields: Prisma.AuthIdentityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AuthIdentityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AuthIdentityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        findFirst: {
+          args: Prisma.AuthIdentityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AuthIdentityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        findMany: {
+          args: Prisma.AuthIdentityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>[]
+        }
+        create: {
+          args: Prisma.AuthIdentityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        createMany: {
+          args: Prisma.AuthIdentityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AuthIdentityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>[]
+        }
+        delete: {
+          args: Prisma.AuthIdentityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        update: {
+          args: Prisma.AuthIdentityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        deleteMany: {
+          args: Prisma.AuthIdentityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AuthIdentityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AuthIdentityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>[]
+        }
+        upsert: {
+          args: Prisma.AuthIdentityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthIdentityPayload>
+        }
+        aggregate: {
+          args: Prisma.AuthIdentityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuthIdentity>
+        }
+        groupBy: {
+          args: Prisma.AuthIdentityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthIdentityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AuthIdentityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthIdentityCountAggregateOutputType> | number
+        }
+      }
+    }
+    RefreshToken: {
+      payload: Prisma.$RefreshTokenPayload<ExtArgs>
+      fields: Prisma.RefreshTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RefreshTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RefreshTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.RefreshTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RefreshTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        findMany: {
+          args: Prisma.RefreshTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+        }
+        create: {
+          args: Prisma.RefreshTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        createMany: {
+          args: Prisma.RefreshTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RefreshTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.RefreshTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        update: {
+          args: Prisma.RefreshTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.RefreshTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RefreshTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RefreshTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.RefreshTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.RefreshTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRefreshToken>
+        }
+        groupBy: {
+          args: Prisma.RefreshTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RefreshTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RefreshTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RefreshTokenCountAggregateOutputType> | number
         }
       }
     }
@@ -2104,6 +2329,7 @@ export const DriverScalarFieldEnum = {
   lng: 'lng',
   rating_avg: 'rating_avg',
   is_verified: 'is_verified',
+  user_id: 'user_id',
   created_at: 'created_at'
 } as const
 
@@ -2164,7 +2390,8 @@ export const MenuItemScalarFieldEnum = {
   photo_url: 'photo_url',
   price: 'price',
   is_available: 'is_available',
-  is_popular: 'is_popular'
+  is_popular: 'is_popular',
+  daily_stock: 'daily_stock'
 } as const
 
 export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typeof MenuItemScalarFieldEnum]
@@ -2338,6 +2565,21 @@ export const ReferralScalarFieldEnum = {
 export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
 
 
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  type: 'type',
+  file_path: 'file_path',
+  mime_type: 'mime_type',
+  status: 'status',
+  reject_reason: 'reject_reason',
+  created_at: 'created_at',
+  reviewed_at: 'reviewed_at'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -2347,10 +2589,36 @@ export const UserScalarFieldEnum = {
   preferences: 'preferences',
   allergies: 'allergies',
   phone_verified: 'phone_verified',
+  role: 'role',
+  stripe_customer_id: 'stripe_customer_id',
   created_at: 'created_at'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AuthIdentityScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  provider: 'provider',
+  provider_user_id: 'provider_user_id',
+  password_hash: 'password_hash',
+  created_at: 'created_at'
+} as const
+
+export type AuthIdentityScalarFieldEnum = (typeof AuthIdentityScalarFieldEnum)[keyof typeof AuthIdentityScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  created_at: 'created_at'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const UserAddressScalarFieldEnum = {
@@ -2372,8 +2640,9 @@ export const PaymentMethodScalarFieldEnum = {
   user_id: 'user_id',
   type: 'type',
   stripe_token: 'stripe_token',
-  last4: 'last4',
-  is_default: 'is_default'
+  label: 'label',
+  is_default: 'is_default',
+  created_at: 'created_at'
 } as const
 
 export type PaymentMethodScalarFieldEnum = (typeof PaymentMethodScalarFieldEnum)[keyof typeof PaymentMethodScalarFieldEnum]
@@ -2706,6 +2975,62 @@ export type ListEnumReferralStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'DocumentType'
+ */
+export type EnumDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentType'>
+    
+
+
+/**
+ * Reference to a field of type 'DocumentType[]'
+ */
+export type ListEnumDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DocumentStatus'
+ */
+export type EnumDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DocumentStatus[]'
+ */
+export type ListEnumDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Role'
+ */
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+/**
+ * Reference to a field of type 'Role[]'
+ */
+export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AuthProvider'
+ */
+export type EnumAuthProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'AuthProvider[]'
+ */
+export type ListEnumAuthProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthProvider[]'>
+    
+
+
+/**
  * Reference to a field of type 'PaymentType'
  */
 export type EnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType'>
@@ -2874,7 +3199,10 @@ export type GlobalOmitConfig = {
   promoCode?: Prisma.PromoCodeOmit
   loyaltyPoint?: Prisma.LoyaltyPointOmit
   referral?: Prisma.ReferralOmit
+  document?: Prisma.DocumentOmit
   user?: Prisma.UserOmit
+  authIdentity?: Prisma.AuthIdentityOmit
+  refreshToken?: Prisma.RefreshTokenOmit
   userAddress?: Prisma.UserAddressOmit
   paymentMethod?: Prisma.PaymentMethodOmit
   subscription?: Prisma.SubscriptionOmit

@@ -108,10 +108,25 @@ export type LoyaltyPoint = Prisma.LoyaltyPointModel
  */
 export type Referral = Prisma.ReferralModel
 /**
+ * Model Document
+ * 
+ */
+export type Document = Prisma.DocumentModel
+/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model AuthIdentity
+ * 
+ */
+export type AuthIdentity = Prisma.AuthIdentityModel
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel
 /**
  * Model UserAddress
  * 

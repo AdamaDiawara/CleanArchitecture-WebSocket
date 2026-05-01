@@ -1,0 +1,101 @@
+import { Money } from "../value-objects/Money.js";
+import { Distance } from "../value-objects/Distance.js";
+import { OrderStatus, type OrderStatusValue } from "../value-objects/OrderStatus.js";
+import type { CartItem } from "./Cart.js";
+
+/** Frais de service de la plateforme (5 %). */
+const SERVICE_FEE_RATE = 0.05;
+/** Prise en charge fixe livreur (€). */
+export const DRIVER_BASE_FEE_EUROS = 1.5;
+/** Prix au km livreur (€). */
+export const DRIVER_PRICE_PER_KM_EUROS = 0.5;
+
+export type OrderLine = {
+  menuItemId: string;
+  name: string;
+  unitPrice: Money;
+  quantity: number;
+};
+
+export type OrderProps = {
+  id: string;
+  clientId: string;
+  restaurantId: string;
+  items: readonly CartItem[];
+  deliveryDistance: Distance;
+  status?: OrderStatusValue;
+  createdAt?: Date;
+};
+
+/**
+ * Entité Order — contient le calcul du prix total et les transitions de statut.
+ * Règle : prix = plats + frais livraison (haversine) + 5 % frais service.
+ */
+export class Order {
+  readonly id: string;
+  readonly clientId: string;
+  readonly restaurantId: string;
+  readonly lines: OrderLine[];
+  readonly itemsTotal: Money;
+  readonly deliveryFee: Money;
+  readonly serviceFee: Money;
+  readonly total: Money;
+  readonly status: OrderStatus;
+  readonly createdAt: Date;
+
+  constructor(props: OrderProps) {
+    this.id           = props.id;
+    this.clientId     = props.clientId;
+    this.restaurantId = props.restaurantId;
+    this.createdAt    = props.createdAt ?? new Date();
+    this.status       = OrderStatus.from(props.status ?? "PENDING");
+
+    this.lines = props.items.map((cartItem) => ({
+      menuItemId: cartItem.menuItemId,
+      name:       cartItem.name,
+      unitPrice:  cartItem.unitPrice,
+      quantity:   cartItem.quantity,
+    }));
+
+    this.itemsTotal  = props.items.reduce((sum, cartItem) => sum.add(cartItem.subtotal), Money.zero());
+    this.deliveryFee = props.deliveryDistance.deliveryFee(
+      Money.fromEuros(DRIVER_PRICE_PER_KM_EUROS),
+      Money.fromEuros(DRIVER_BASE_FEE_EUROS),
+    );
+    this.serviceFee  = this.itemsTotal.multiply(SERVICE_FEE_RATE);
+    this.total       = this.itemsTotal.add(this.deliveryFee).add(this.serviceFee);
+  }
+
+  transitionTo(next: OrderStatusValue): Order {
+    const newStatus = this.status.transitionTo(next);
+    return new Order({
+      id:               this.id,
+      clientId:         this.clientId,
+      restaurantId:     this.restaurantId,
+      items:            [],
+      deliveryDistance: Distance.fromMeters(0),
+      status:           newStatus.value,
+      createdAt:        this.createdAt,
+    });
+  }
+
+  toInvoice(): {
+    orderId: string;
+    lines: OrderLine[];
+    itemsTotal: string;
+    deliveryFee: string;
+    serviceFee: string;
+    total: string;
+    createdAt: Date;
+  } {
+    return {
+      orderId:     this.id,
+      lines:       this.lines,
+      itemsTotal:  this.itemsTotal.toString(),
+      deliveryFee: this.deliveryFee.toString(),
+      serviceFee:  this.serviceFee.toString(),
+      total:       this.total.toString(),
+      createdAt:   this.createdAt,
+    };
+  }
+}
